@@ -42,7 +42,8 @@ set expandtab
 set number
 set autoindent
 set textwidth=80
-set ruler
+set formatoptions=qrn1
+set colorcolumn=85
 
 " Nice font
 set guifont=Inconsolata\ Medium\ 10
@@ -104,3 +105,19 @@ inoremap <up> <nop>
 inoremap <down> <nop>
 inoremap <left> <nop>
 inoremap <right> <nop>
+
+" Make sure movement works a I would expect in insert mode
+nnoremap j gj
+nnoremap k gk
+
+" Disable help key
+inoremap <F1> <ESC>
+nnoremap <F1> <ESC>
+vnoremap <F1> <ESC>
+
+" Easier split navigation
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
