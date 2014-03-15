@@ -19,6 +19,7 @@ Bundle 'plasticboy/vim-markdown'
 Bundle 'scrooloose/nerdtree'
 Bundle 'bling/vim-airline'
 Bundle 'kien/ctrlp.vim'
+Bundle 'tpope/vim-surround'
 
 "
 " Other options
@@ -59,9 +60,24 @@ let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
 " Disable YCM for python and some other
 let g:ycm_filetypes_to_completely_ignore = {'notes': 1, 'markdown': 1, 'text': 1}
 
+" Recursive lookup for tags file
+set tags=./tags;/
+
 " CtrlP settings
 " Use mixed mode by default
 let g:ctrlp_cmd = 'CtrlPMixed'
+
+" CtrlP for tags
+let g:ctrlp_extensions = ['tag', 'buftag']
+let g:ctrlp_buftag_types = {
+    \ 'javascript': {
+    \     'bin': 'jsctags',
+    \     'args': '-f -'
+    \ },
+    \ 'python': '--python-kinds=-i'
+\ }
+
+map <C-o> :CtrlPBufTagAll<CR>
 
 " NERDTree keybinding
 map <C-n> :NERDTreeToggle<CR>
