@@ -47,7 +47,7 @@ set formatoptions=qrn1
 set colorcolumn=85
 
 " Nice font
-set guifont=Inconsolata\ Medium\ 10
+set guifont=Inconsolata\ for\ Powerline\ Medium\ 11
 
 " Enable wildmenu
 set laststatus=2
@@ -87,6 +87,10 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTree
 " Airline options
 " Use powerline fonts
 let g:airline_powerline_fonts = 1
+let g:airline_theme='powerlineish'
+"let g:airline_left_sep=''
+"let g:airline_right_sep=''
+"let g:airline_section_z=''
 
 " No annoying sound on errors
 set noerrorbells
