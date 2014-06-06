@@ -7,19 +7,21 @@ filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+call vundle#begin()
 
 " let Vundle manage Vundle, required
-Bundle 'gmarik/vundle'
+Plugin 'gmarik/vundle'
 
 " Other Plugins
-Bundle 'Valloric/YouCompleteMe'
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'plasticboy/vim-markdown'
-Bundle 'scrooloose/nerdtree'
-Bundle 'bling/vim-airline'
-Bundle 'kien/ctrlp.vim'
-Bundle 'tpope/vim-surround'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'plasticboy/vim-markdown'
+Plugin 'scrooloose/nerdtree'
+Plugin 'bling/vim-airline'
+Plugin 'kien/ctrlp.vim'
+Plugin 'tpope/vim-surround'
+
+call vundle#end()
 
 "
 " Other options
@@ -47,7 +49,7 @@ set formatoptions=qrn1
 set colorcolumn=85
 
 " Nice font
-set guifont=Inconsolata\ for\ Powerline\ Medium\ 11
+set guifont=Inconsolata\ for\ Powerline\ Medium\ 12
 
 " Enable wildmenu
 set laststatus=2
