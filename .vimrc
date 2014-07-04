@@ -20,6 +20,8 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'bling/vim-airline'
 Plugin 'kien/ctrlp.vim'
 Plugin 'tpope/vim-surround'
+Plugin 'klen/python-mode'
+Plugin 'wting/rust.vim'
 
 call vundle#end()
 
@@ -51,6 +53,9 @@ set colorcolumn=85
 " Nice font
 set guifont=Inconsolata\ for\ Powerline\ Medium\ 12
 
+" Open all folds by default
+au BufWinEnter * normal zR
+
 " Enable wildmenu
 set laststatus=2
 set wildmenu
@@ -61,6 +66,13 @@ let g:ycm_min_num_of_chars_for_completion = 1
 let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
 " Disable YCM for python and some other
 let g:ycm_filetypes_to_completely_ignore = {'notes': 1, 'markdown': 1, 'text': 1}
+
+" Python mode settings
+let g:pymode_options_max_line_length = 85
+let g:pymode_lint_ignore = "E128,E302,W391"
+let g:pymode_lint_on_fly = 1
+let g:pymode_rope = 0
+let g:pymode_rope_completion = 0
 
 " Recursive lookup for tags file
 set tags=./tags;/
