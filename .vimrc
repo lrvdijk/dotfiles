@@ -20,8 +20,10 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'bling/vim-airline'
 Plugin 'kien/ctrlp.vim'
 Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-fugitive'
 Plugin 'klen/python-mode'
 Plugin 'wting/rust.vim'
+Plugin 'tkztmk/vim-vala'
 
 call vundle#end()
 
@@ -34,6 +36,9 @@ filetype plugin on
 let g:mapleader = '\'
 
 " Syntax hightlighting
+" Without the line below, highlighting the current line doesn't work,
+" and fixes some background color mismatches in terminal.
+let g:solarized_termtrans=1
 syntax on
 set background=dark
 colorscheme solarized
@@ -49,6 +54,7 @@ set autoindent
 set textwidth=80
 set formatoptions=qrn1
 set colorcolumn=85
+set ttimeoutlen=50
 
 " Nice font
 set guifont=Inconsolata\ for\ Powerline\ Medium\ 12
@@ -69,7 +75,7 @@ let g:ycm_filetypes_to_completely_ignore = {'notes': 1, 'markdown': 1, 'text': 1
 
 " Python mode settings
 let g:pymode_options_max_line_length = 85
-let g:pymode_lint_ignore = "E128,E302,W391"
+let g:pymode_lint_ignore = "E128,E302,W391,W0401"
 let g:pymode_lint_on_fly = 1
 let g:pymode_rope = 0
 let g:pymode_rope_completion = 0
@@ -155,3 +161,5 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
+" Highlight current line when in insert mode
+autocmd InsertEnter,InsertLeave * set cul!
