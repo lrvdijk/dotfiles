@@ -35,10 +35,12 @@ call vundle#end()
 filetype plugin on
 let g:mapleader = '\'
 
+" Set t_Co to 256, this fixes the colors in the airline pluin
+set t_Co=256
+
 " Syntax hightlighting
 " Without the line below, highlighting the current line doesn't work,
 " and fixes some background color mismatches in terminal.
-set t_Co=256
 let g:solarized_termtrans=1
 syntax on
 set background=dark
@@ -109,9 +111,6 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTree
 " Use powerline fonts
 let g:airline_powerline_fonts = 1
 let g:airline_theme='powerlineish'
-"let g:airline_left_sep=''
-"let g:airline_right_sep=''
-"let g:airline_section_z=''
 
 " No annoying sound on errors
 set noerrorbells
@@ -120,7 +119,7 @@ set novisualbell
 " Highlight search results
 set hlsearch
 
-" Makes search act like search in modern browsers
+" Makes search acts like search in modern browsers
 set incsearch
 
 if has("persistent_undo")
