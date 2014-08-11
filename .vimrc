@@ -68,8 +68,9 @@ let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
 let g:ycm_filetypes_to_completely_ignore = {'notes': 1, 'markdown': 1, 'text': 1}
 
 " Python mode settings
-let g:pymode_options_max_line_length = 85
-let g:pymode_lint_ignore = "E128,E302,W391"
+let g:pymode = 0
+let g:pymode_options_max_line_length = 90
+let g:pymode_lint_ignore = "E128,E302,W391,W0401,E501"
 let g:pymode_lint_on_fly = 1
 let g:pymode_rope = 0
 let g:pymode_rope_completion = 0
