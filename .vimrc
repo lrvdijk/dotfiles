@@ -70,8 +70,8 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.o,*.pyc,*.a,*.d
 " YouCompleteMe settings
 let g:ycm_min_num_of_chars_for_completion = 1
 let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
-" Disable YCM for python and some other
 let g:ycm_filetypes_to_completely_ignore = {'notes': 1, 'markdown': 1, 'text': 1}
+let g:ycm_autoclose_preview_window_after_insertion = 1
 
 " Python mode settings
 let g:pymode_options_max_line_length = 85
