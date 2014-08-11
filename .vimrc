@@ -38,6 +38,7 @@ let g:mapleader = '\'
 " Syntax hightlighting
 " Without the line below, highlighting the current line doesn't work,
 " and fixes some background color mismatches in terminal.
+set t_Co=256
 let g:solarized_termtrans=1
 syntax on
 set background=dark
