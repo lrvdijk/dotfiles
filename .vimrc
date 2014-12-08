@@ -24,6 +24,7 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'klen/python-mode'
 Plugin 'wting/rust.vim'
 Plugin 'tkztmk/vim-vala'
+Plugin 'christoomey/vim-tmux-navigator'
 
 call vundle#end()
 
