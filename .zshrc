@@ -1,5 +1,5 @@
 # Path to your oh-my-zsh configuration.
-ZSH=$HOME/programming/shell/oh-my-zsh
+ZSH=$HOME/.oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -8,10 +8,10 @@ ZSH=$HOME/programming/shell/oh-my-zsh
 ZSH_THEME="agnoster"
 DEFAULT_USER="lucas"
 
-alias zshconfig="mate ~/.zshrc"
+alias zshconfig="vim ~/.zshrc"
 
-# Tmux force 256 colors
-ZSH_TMUX_FORCE_256COLOR=true
+# Make sure tmux also uses nice colors
+TERM=xterm-256color
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
