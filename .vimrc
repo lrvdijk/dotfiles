@@ -25,6 +25,7 @@ Plugin 'klen/python-mode'
 Plugin 'wting/rust.vim'
 Plugin 'tkztmk/vim-vala'
 Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'greyblake/vim-preview'
 
 call vundle#end()
 
@@ -80,7 +81,7 @@ let g:ycm_autoclose_preview_window_after_insertion = 1
 " Python mode settings
 let g:pymode_options_max_line_length = 85
 let g:pymode_lint_ignore = "E128,E302,W391,W0401"
-let g:pymode_lint_on_fly = 1
+let g:pymode_lint_on_fly = 0
 let g:pymode_rope = 0
 let g:pymode_rope_completion = 0
 
@@ -164,3 +165,8 @@ nnoremap <C-l> <C-w>l
 
 " Highlight current line when in insert mode
 autocmd InsertEnter,InsertLeave * set cul!
+
+" Automatically set terminal title with the current active filename
+" Used for nice names for tmux tabs
+autocmd BufEnter * let &titlestring = ' ' . expand("%:t")
+set title
