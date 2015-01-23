@@ -34,8 +34,9 @@ export MAKEFLAGS="-j4"
 # ssh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
 
-# Enable powerline
-. /usr/lib/python3.4/site-packages/powerline/bindings/zsh/powerline.zsh
+# Enable powerline (and use daemon mode)
+powerline-daemon --quiet
+. /usr/share/zsh/site-contrib/powerline.zsh
 
 # Vi key bindings
 bindkey -v

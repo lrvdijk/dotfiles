@@ -17,7 +17,6 @@ Plugin 'Valloric/YouCompleteMe'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'scrooloose/nerdtree'
-Plugin 'bling/vim-airline'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-fugitive'
@@ -67,7 +66,7 @@ set guifont=Inconsolata\ for\ Powerline\ Medium\ 12
 " Open all folds by default
 au BufWinEnter * normal zR
 
-" Enable wildmenu
+" Enable wildmenu, laststatus=2 also required for powerline
 set laststatus=2
 set wildmenu
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.o,*.pyc,*.a,*.d
@@ -108,11 +107,6 @@ map <C-o> :CtrlPBufTagAll<CR>
 map <C-n> :NERDTreeToggle<CR>
 " Automatically close the window if only a NERDTree window is left
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-
-" Airline options
-" Use powerline fonts
-let g:airline_powerline_fonts = 1
-let g:airline_theme='powerlineish'
 
 " No annoying sound on errors
 set noerrorbells
