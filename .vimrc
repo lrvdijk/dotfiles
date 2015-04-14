@@ -16,11 +16,10 @@ Plugin 'gmarik/vundle'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'plasticboy/vim-markdown'
-Plugin 'scrooloose/nerdtree'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-fugitive'
-Plugin 'klen/python-mode'
+Plugin 'nvie/vim-flake8'
 Plugin 'wting/rust.vim'
 Plugin 'tkztmk/vim-vala'
 Plugin 'christoomey/vim-tmux-navigator'
@@ -57,7 +56,7 @@ set number
 set autoindent
 set textwidth=80
 set formatoptions=qrn1
-set colorcolumn=85
+set colorcolumn=80
 set ttimeoutlen=50
 
 " Nice font
@@ -76,13 +75,13 @@ let g:ycm_min_num_of_chars_for_completion = 1
 let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
 let g:ycm_filetypes_to_completely_ignore = {'notes': 1, 'markdown': 1, 'text': 1}
 let g:ycm_autoclose_preview_window_after_insertion = 1
+let g:ycm_extra_conf_globlist = ['~/programming/*']
 
-" Python mode settings
-let g:pymode_options_max_line_length = 85
-let g:pymode_lint_ignore = "E128,E302,W391,W0401"
-let g:pymode_lint_on_fly = 0
-let g:pymode_rope = 0
-let g:pymode_rope_completion = 0
+" Python PEP8 checker
+let g:flake8_show_in_gutter = 1
+let g:flake8_quickfix_location = "botright"
+let g:flake8_quickfix_height = 6
+autocmd BufWritePost *.py call Flake8()
 
 " Recursive lookup for tags file
 set tags=./tags;/
@@ -102,11 +101,6 @@ let g:ctrlp_buftag_types = {
 \ }
 
 map <C-o> :CtrlPBufTagAll<CR>
-
-" NERDTree keybinding
-map <C-n> :NERDTreeToggle<CR>
-" Automatically close the window if only a NERDTree window is left
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
 " No annoying sound on errors
 set noerrorbells
@@ -160,7 +154,6 @@ nnoremap <C-l> <C-w>l
 " Highlight current line when in insert mode
 autocmd InsertEnter,InsertLeave * set cul!
 
-" Automatically set terminal title with the current active filename
-" Used for nice names for tmux tabs
-autocmd BufEnter * let &titlestring = ' ' . expand("%:t")
-set title
+" Automatically remove trailing whitespace on save for
+" some filetypes
+autocmd FileType c,cpp,java,php,py autocmd BufWritePre <buffer> :%s/\s\+$//e
