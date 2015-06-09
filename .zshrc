@@ -23,6 +23,7 @@ source $ZSH/oh-my-zsh.sh
 # User configuration
 
 export PATH=$HOME/.gem/ruby/2.2.0/bin:$HOME/bin:/usr/local/bin:$PATH
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/matlab/dip/Linuxa64/lib
 # export MANPATH="/usr/local/man:$MANPATH"
 
 export EDITOR='vim'
