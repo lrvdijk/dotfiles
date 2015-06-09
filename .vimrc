@@ -26,6 +26,7 @@ Plugin 'wting/rust.vim'
 Plugin 'tkztmk/vim-vala'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'greyblake/vim-preview'
+Plugin 'tikhomirov/vim-glsl'
 
 call vundle#end()
 
@@ -103,6 +104,12 @@ let g:ctrlp_buftag_types = {
 \ }
 
 map <C-o> :CtrlPBufTagAll<CR>
+
+" vim-pandoc settings
+" Disable folding
+let g:pandoc#modules#disabled = ["folding"]
+" Enable hard line breaks
+let g:pandoc#formatting#mode = "ha"
 
 " No annoying sound on errors
 set noerrorbells
