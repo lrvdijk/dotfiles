@@ -16,6 +16,8 @@ Plugin 'gmarik/vundle'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'plasticboy/vim-markdown'
+Plugin 'vim-pandoc/vim-pandoc'
+Plugin 'vim-pandoc/vim-pandoc-syntax'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-fugitive'
@@ -24,6 +26,7 @@ Plugin 'wting/rust.vim'
 Plugin 'tkztmk/vim-vala'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'greyblake/vim-preview'
+Plugin 'tikhomirov/vim-glsl'
 
 call vundle#end()
 
@@ -102,6 +105,12 @@ let g:ctrlp_buftag_types = {
 
 map <C-o> :CtrlPBufTagAll<CR>
 
+" vim-pandoc settings
+" Disable folding
+let g:pandoc#modules#disabled = ["folding"]
+" Enable hard line breaks
+let g:pandoc#formatting#mode = "ha"
+
 " No annoying sound on errors
 set noerrorbells
 set novisualbell
@@ -156,4 +165,11 @@ autocmd InsertEnter,InsertLeave * set cul!
 
 " Automatically remove trailing whitespace on save for
 " some filetypes
-autocmd FileType c,cpp,java,php,py autocmd BufWritePre <buffer> :%s/\s\+$//e
+fun! <SID>StripTrailingWhitespaces()
+    let l = line(".")
+    let c = col(".")
+    %s/\s\+$//e
+    call cursor(l, c)
+endfun
+
+autocmd FileType c,cpp,java,php,ruby,python autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
