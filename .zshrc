@@ -22,7 +22,7 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-export PATH=$HOME/.gem/ruby/2.2.0/bin:$HOME/bin:/usr/local/bin:$PATH
+export PATH=$PATH:$HOME/.gem/ruby/2.2.0/bin:$HOME/bin:/usr/local/bin
 export PATH=$PATH:$HOME/.cabal/bin
 # export MANPATH="/usr/local/man:$MANPATH"
 
