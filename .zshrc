@@ -23,6 +23,7 @@ source $ZSH/oh-my-zsh.sh
 # User configuration
 
 export PATH=$PATH:$HOME/.gem/ruby/2.2.0/bin:$HOME/bin:/usr/local/bin
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/matlab/dip/Linuxa64/lib
 export PATH=$PATH:$HOME/.cabal/bin
 # export MANPATH="/usr/local/man:$MANPATH"
 
