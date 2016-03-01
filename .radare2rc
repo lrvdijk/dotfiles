@@ -1,0 +1,22 @@
+# Solarized theme
+eco solarized
+
+# Enable UTF-8 and nice colors
+e scr.utf8 = true
+e scr.truecolor = true
+
+# Enable stack and register view in visual mode
+e cmd.stack = true
+
+# Display stack pointer is disassembly view
+e asm.stackptr = true
+
+# Print current instruction at breakpoint
+e cmd.bp = pd 1
+
+# Show comments on the right
+e asm.cmtright = true
+
+# Demangle symbol names
+e bin.demangle = true
+e asm.demangle = true
