@@ -27,7 +27,7 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/matlab/dip/Linuxa64/lib
 export PATH=$PATH:$HOME/.cabal/bin
 # export MANPATH="/usr/local/man:$MANPATH"
 
-export EDITOR='vim'
+export EDITOR='nvim'
 
 # Compilation flags
 # Use all 4 cores
