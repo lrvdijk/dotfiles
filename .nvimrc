@@ -8,20 +8,29 @@ filetype off                  " required
 " set the runtime path to include Vundle and initialize
 call plug#begin('~/.config/nvim/bundle')
 
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
 Plug 'Valloric/YouCompleteMe', { 'do': 'python install.py --clang-completer --system-libclang --racer-completer' }
 Plug 'altercation/vim-colors-solarized'
-Plug 'plasticboy/vim-markdown'
-Plug 'vim-pandoc/vim-pandoc'
-Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
+
 Plug 'nvie/vim-flake8'
+Plug 'hynek/vim-python-pep8-indent'
+Plug 'tmhedberg/SimpylFold'
+
 Plug 'wting/rust.vim'
 Plug 'tkztmk/vim-vala'
-Plug 'christoomey/vim-tmux-navigator'
-Plug 'greyblake/vim-preview'
+Plug 'eagletmt/neco-ghc'
+Plug 'vim-pandoc/vim-pandoc'
+Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'tikhomirov/vim-glsl'
+Plug 'plasticboy/vim-markdown'
+Plug 'greyblake/vim-preview'
+
+Plug 'christoomey/vim-tmux-navigator'
 
 call plug#end()
 
@@ -40,6 +49,7 @@ set t_Co=256
 " Without the line below, highlighting the current line doesn't work,
 " and fixes some background color mismatches in terminal.
 let g:solarized_termtrans=1
+let python_highlight_all=1
 syntax on
 set background=dark
 colorscheme solarized
@@ -57,8 +67,12 @@ set formatoptions=qrn1
 set colorcolumn=80
 set ttimeoutlen=50
 
-" Nice font
-set guifont=Inconsolata\ for\ Powerline\ Medium\ 12
+" Vim Airline configuration
+let g:airline_theme='solarized'
+let g:airline_powerline_fonts=1
+
+" Recursive lookup for tags file
+set tags=./tags;/
 
 " Open all folds by default
 au BufWinEnter * normal zR
@@ -68,12 +82,8 @@ set laststatus=2
 set wildmenu
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.o,*.pyc,*.a,*.d
 
-" YouCompleteMe settings
-let g:ycm_min_num_of_chars_for_completion = 1
-let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
-let g:ycm_filetypes_to_completely_ignore = {'notes': 1, 'markdown': 1, 'text': 1}
-let g:ycm_autoclose_preview_window_after_insertion = 1
-let g:ycm_extra_conf_globlist = ['~/programming/*']
+"""""""""""""""""""""""""""""""""
+" Python Settings
 
 " Python PEP8 checker
 let g:flake8_show_in_gutter = 1
@@ -81,24 +91,10 @@ let g:flake8_quickfix_location = "botright"
 let g:flake8_quickfix_height = 6
 autocmd BufWritePost *.py call Flake8()
 
-" Recursive lookup for tags file
-set tags=./tags;/
-
-" CtrlP settings
-" Use mixed mode by default
-let g:ctrlp_cmd = 'CtrlPMixed'
-
-" CtrlP for tags
-let g:ctrlp_extensions = ['tag', 'buftag']
-let g:ctrlp_buftag_types = {
-    \ 'javascript': {
-    \     'bin': 'jsctags',
-    \     'args': '-f -'
-    \ },
-    \ 'python': '--python-kinds=-i'
-\ }
-
-map <C-o> :CtrlPBufTagAll<CR>
+" Folding
+let g:SimpylFold_docstring_preview = 1
+autocmd BufWinEnter *.py setlocal foldexpr=SimpylFold(v:lnum) foldmethod=expr
+autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
 
 " vim-pandoc settings
 " Disable folding
@@ -130,16 +126,6 @@ autocmd BufReadPost *
 " Save as sudo with w!!
 cmap w!! %!sudo tee > /dev/null %
 
-" Disable arrow keys
-nnoremap <up> <nop>
-nnoremap <down> <nop>
-nnoremap <left> <nop>
-nnoremap <right> <nop>
-inoremap <up> <nop>
-inoremap <down> <nop>
-inoremap <left> <nop>
-inoremap <right> <nop>
-
 " Make sure movement works a I would expect in insert mode
 nnoremap j gj
 nnoremap k gk
@@ -149,11 +135,8 @@ inoremap <F1> <ESC>
 nnoremap <F1> <ESC>
 vnoremap <F1> <ESC>
 
-" Easier split navigation
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
+" Workaround for neovim Ctrl+h issue
+nnoremap <silent> <BS> :TmuxNavigateLeft<cr>
 
 " Highlight current line when in insert mode
 autocmd InsertEnter,InsertLeave * set cul!
