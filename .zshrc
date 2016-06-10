@@ -5,7 +5,7 @@ ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="agnoster"
+ZSH_THEME="honukai"
 DEFAULT_USER="lucas"
 
 alias zshconfig="vim ~/.zshrc"
@@ -32,13 +32,6 @@ export EDITOR='nvim'
 # Compilation flags
 # Use all 4 cores
 export MAKEFLAGS="-j4"
-
-# ssh
-# export SSH_KEY_PATH="~/.ssh/dsa_id"
-
-# Enable powerline (and use daemon mode)
-powerline-daemon --quiet
-. /usr/share/zsh/site-contrib/powerline.zsh
 
 # Vi key bindings
 bindkey -v
