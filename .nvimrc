@@ -10,16 +10,16 @@ call plug#begin('~/.config/nvim/bundle')
 
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'altercation/vim-colors-solarized'
+Plug 'chriskempson/vim-tomorrow-theme'
 
 Plug 'Valloric/YouCompleteMe', { 'do': 'python install.py --clang-completer --system-libclang --racer-completer' }
-Plug 'altercation/vim-colors-solarized'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 
 Plug 'nvie/vim-flake8'
 Plug 'hynek/vim-python-pep8-indent'
-Plug 'tmhedberg/SimpylFold'
 
 Plug 'wting/rust.vim'
 Plug 'tkztmk/vim-vala'
@@ -27,6 +27,8 @@ Plug 'eagletmt/neco-ghc'
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'tikhomirov/vim-glsl'
+Plug 'zah/nim.vim'
+
 Plug 'plasticboy/vim-markdown'
 Plug 'greyblake/vim-preview'
 
@@ -52,7 +54,11 @@ let g:solarized_termtrans=1
 let python_highlight_all=1
 syntax on
 set background=dark
-colorscheme solarized
+colorscheme Tomorrow-Night-Eighties
+
+" Vim Airline configuration
+let g:airline_theme='tomorrow'
+let g:airline_powerline_fonts=1
 
 " Misc settings
 set backspace=indent,eol,start
@@ -67,10 +73,6 @@ set formatoptions=qrn1
 set colorcolumn=80
 set ttimeoutlen=50
 
-" Vim Airline configuration
-let g:airline_theme='solarized'
-let g:airline_powerline_fonts=1
-
 " Recursive lookup for tags file
 set tags=./tags;/
 
@@ -82,6 +84,9 @@ set laststatus=2
 set wildmenu
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.o,*.pyc,*.a,*.d
 
+" YouCompleteMe Settings
+let g:ycm_autoclose_preview_window_after_insertion = 1
+
 """""""""""""""""""""""""""""""""
 " Python Settings
 
@@ -90,11 +95,6 @@ let g:flake8_show_in_gutter = 1
 let g:flake8_quickfix_location = "botright"
 let g:flake8_quickfix_height = 6
 autocmd BufWritePost *.py call Flake8()
-
-" Folding
-let g:SimpylFold_docstring_preview = 1
-autocmd BufWinEnter *.py setlocal foldexpr=SimpylFold(v:lnum) foldmethod=expr
-autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
 
 " vim-pandoc settings
 " Disable folding
@@ -129,11 +129,6 @@ cmap w!! %!sudo tee > /dev/null %
 " Make sure movement works a I would expect in insert mode
 nnoremap j gj
 nnoremap k gk
-
-" Disable help key
-inoremap <F1> <ESC>
-nnoremap <F1> <ESC>
-vnoremap <F1> <ESC>
 
 " Workaround for neovim Ctrl+h issue
 nnoremap <silent> <BS> :TmuxNavigateLeft<cr>
