@@ -11,7 +11,7 @@ call plug#begin('~/.config/nvim/bundle')
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'altercation/vim-colors-solarized'
-Plug 'chriskempson/vim-tomorrow-theme'
+Plug 'chriskempson/tomorrow-theme', { 'rtp': 'vim' }
 
 Plug 'Valloric/YouCompleteMe', { 'do': 'python install.py --clang-completer --system-libclang --racer-completer' }
 Plug 'ctrlpvim/ctrlp.vim'
