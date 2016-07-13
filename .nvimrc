@@ -28,6 +28,7 @@ Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'tikhomirov/vim-glsl'
 Plug 'zah/nim.vim'
+Plug 'lervag/vimtex'
 
 Plug 'plasticboy/vim-markdown'
 Plug 'greyblake/vim-preview'
