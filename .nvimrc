@@ -20,6 +20,7 @@ Plug 'tpope/vim-fugitive'
 
 Plug 'nvie/vim-flake8'
 Plug 'hynek/vim-python-pep8-indent'
+Plug 'https://bitbucket.org/snakemake/snakemake.git', {'rtp': 'misc/vim/'}
 
 Plug 'wting/rust.vim'
 Plug 'tkztmk/vim-vala'
@@ -159,3 +160,9 @@ fun! <SID>StripTrailingWhitespaces()
 endfun
 
 autocmd FileType c,cpp,java,php,ruby,python autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
+
+" Snakemake support
+au BufNewFile,BufRead Snakefile set syntax=snakemake
+au BufNewFile,BufRead *.rules set syntax=snakemake
+au BufNewFile,BufRead *.snakefile set syntax=snakemake
+au BufNewFile,BufRead *.snake set syntax=snakemake
