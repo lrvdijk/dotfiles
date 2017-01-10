@@ -23,8 +23,8 @@ source $ZSH/oh-my-zsh.sh
 # User configuration
 
 export PATH=$PATH:$HOME/.gem/ruby/2.3.0/bin:$HOME/bin:/usr/local/bin
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/matlab/dip/Linuxa64/lib
-export PATH=$PATH:$HOME/.cabal/bin
+export PATH=$HOME/.conda/bin/:$PATH
+export PATH=$HOME/.cargo/bin/:$PATH
 # export MANPATH="/usr/local/man:$MANPATH"
 
 export EDITOR='nvim'
