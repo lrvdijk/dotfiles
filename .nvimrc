@@ -11,7 +11,7 @@ call plug#begin('~/.config/nvim/bundle')
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'altercation/vim-colors-solarized'
-Plug 'chriskempson/tomorrow-theme', { 'rtp': 'vim' }
+Plug 'chriskempson/base16-vim'
 
 Plug 'Valloric/YouCompleteMe', { 'do': 'python install.py --clang-completer --system-libclang --racer-completer' }
 Plug 'ctrlpvim/ctrlp.vim'
@@ -22,7 +22,7 @@ Plug 'nvie/vim-flake8'
 Plug 'hynek/vim-python-pep8-indent'
 Plug 'https://bitbucket.org/snakemake/snakemake.git', {'rtp': 'misc/vim/'}
 
-Plug 'wting/rust.vim'
+Plug 'rust-lang/rust.vim'
 Plug 'tkztmk/vim-vala'
 Plug 'eagletmt/neco-ghc'
 Plug 'vim-pandoc/vim-pandoc'
@@ -52,14 +52,18 @@ set t_Co=256
 " Syntax hightlighting
 " Without the line below, highlighting the current line doesn't work,
 " and fixes some background color mismatches in terminal.
-let g:solarized_termtrans=1
 let python_highlight_all=1
 syntax on
 set background=dark
-colorscheme Tomorrow-Night-Eighties
+
+" Base16 colourscheme
+if filereadable(expand("~/.vimrc_background"))
+  let base16colorspace=256
+  source ~/.vimrc_background
+endif
+colorscheme base16-default-dark
 
 " Vim Airline configuration
-let g:airline_theme='tomorrow'
 let g:airline_powerline_fonts=1
 
 " Misc settings
@@ -115,6 +119,9 @@ autocmd BufWritePost *.py call Flake8()
 let g:pandoc#modules#disabled = ["folding"]
 " Enable hard line breaks
 let g:pandoc#formatting#mode = "ha"
+
+" Rust.vim automatic formatting
+let g:rustfmt_autosave = 1
 
 " No annoying sound on errors
 set noerrorbells
