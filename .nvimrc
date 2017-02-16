@@ -75,7 +75,7 @@ set expandtab
 set number
 set autoindent
 set textwidth=80
-set formatoptions=qrn1
+set formatoptions+=1r
 set colorcolumn=80
 set ttimeoutlen=50
 
