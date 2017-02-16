@@ -28,7 +28,6 @@ BASE16_SHELL=$HOME/dotfiles/base16-shell/
 export PATH=$PATH:$HOME/.gem/ruby/2.3.0/bin:$HOME/bin:/usr/local/bin
 export PATH=$PATH:$HOME/.conda/bin/
 export PATH=$PATH:$HOME/.cargo/bin/
-# export MANPATH="/usr/local/man:$MANPATH"
 
 export EDITOR='nvim'
 
