@@ -13,12 +13,11 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'altercation/vim-colors-solarized'
 Plug 'chriskempson/base16-vim'
 
-Plug 'Valloric/YouCompleteMe', { 'do': 'python install.py --clang-completer --system-libclang --racer-completer' }
+Plug 'Valloric/YouCompleteMe', { 'do': 'python install.py --clang-completer --system-libclang' }
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 
-Plug 'nvie/vim-flake8'
 Plug 'hynek/vim-python-pep8-indent'
 Plug 'https://bitbucket.org/snakemake/snakemake.git', {'rtp': 'misc/vim/'}
 
@@ -31,9 +30,11 @@ Plug 'tikhomirov/vim-glsl'
 Plug 'zah/nim.vim'
 Plug 'lervag/vimtex'
 Plug 'nickhutchinson/vim-cmake-syntax'
+Plug 'neomake/neomake'
 
 Plug 'plasticboy/vim-markdown'
 Plug 'greyblake/vim-preview'
+Plug 'majutsushi/tagbar'
 
 Plug 'christoomey/vim-tmux-navigator'
 
@@ -109,11 +110,10 @@ let g:ycm_semantic_triggers.tex = [
         \ 're!\\includestandalone(\s*\[[^]]*\])?\s*\{[^}]*',
 \ ]
 
-" Python PEP8 checker
-let g:flake8_show_in_gutter = 1
-let g:flake8_quickfix_location = "botright"
-let g:flake8_quickfix_height = 6
-autocmd BufWritePost *.py call Flake8()
+" Run neomake on save
+autocmd! BufWritePost * Neomake
+let g:neomake_open_list = 2
+let g:neomake_list_height = 5
 
 " vim-pandoc settings
 " Disable folding
@@ -157,6 +157,10 @@ nnoremap <silent> <BS> :TmuxNavigateLeft<cr>
 
 " Highlight current line when in insert mode
 autocmd InsertEnter,InsertLeave * set cul!
+
+" Tagbar keymap
+nmap <leader>s :TagbarToggle<CR>
+let g:tagbar_autofocus = 1
 
 " Automatically remove trailing whitespace on save for
 " some filetypes
