@@ -161,6 +161,7 @@ autocmd InsertEnter,InsertLeave * set cul!
 " Tagbar keymap
 nmap <leader>s :TagbarToggle<CR>
 let g:tagbar_autofocus = 1
+let g:tagbar_autoclose = 1
 
 " Automatically remove trailing whitespace on save for
 " some filetypes
