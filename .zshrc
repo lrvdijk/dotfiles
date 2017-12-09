@@ -1,11 +1,11 @@
 # Path to your oh-my-zsh configuration.
-ZSH=$HOME/.oh-my-zsh
+ZSH=$HOME/dotfiles/oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="kennethreitz"
+ZSH_THEME="gallifrey"
 DEFAULT_USER="lucas"
 
 alias zshconfig="nvim ~/.zshrc"
@@ -19,6 +19,9 @@ TERM=xterm-256color
 plugins=(git celery django mercurial pip python virtualenv tmux)
 
 source $ZSH/oh-my-zsh.sh
+
+# Add additional completions
+fpath=(/usr/local/share/zsh-completions $fpath)
 
 # Nice colourtheme
 BASE16_SHELL=$HOME/dotfiles/base16-shell/
@@ -38,3 +41,4 @@ export MAKEFLAGS="-j4"
 # Vi key bindings
 bindkey -v
 export KEYTIMEOUT=1
+
