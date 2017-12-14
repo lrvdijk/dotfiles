@@ -13,13 +13,14 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'altercation/vim-colors-solarized'
 Plug 'chriskempson/base16-vim'
 
-Plug 'Valloric/YouCompleteMe', { 'do': 'python install.py --clang-completer --system-libclang' }
+Plug 'Valloric/YouCompleteMe', { 'do': 'python3 install.py --clang-completer' }
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 
 Plug 'hynek/vim-python-pep8-indent'
 Plug 'https://bitbucket.org/snakemake/snakemake.git', {'rtp': 'misc/vim/'}
+Plug 'broadinstitute/vim-wdl'
 
 Plug 'rust-lang/rust.vim'
 Plug 'tkztmk/vim-vala'
@@ -27,7 +28,6 @@ Plug 'eagletmt/neco-ghc'
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'tikhomirov/vim-glsl'
-Plug 'zah/nim.vim'
 Plug 'lervag/vimtex'
 Plug 'nickhutchinson/vim-cmake-syntax'
 Plug 'neomake/neomake'
@@ -93,7 +93,10 @@ set wildmenu
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.o,*.pyc,*.a,*.d
 
 " YouCompleteMe Settings
+let g:ycm_min_num_of_chars_for_completion = 1
+let g:ycm_seed_identifiers_with_syntax = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
+let g:ycm_extra_conf_globlist = ['~/Stack/*','~/BroadDrive/*','~/programming/*','!~/*']
 
 " Let YouCompleteMe also suggest LaTeX completions from VimTex
 if !exists('g:ycm_semantic_triggers')
