@@ -30,6 +30,7 @@ Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'tikhomirov/vim-glsl'
 Plug 'lervag/vimtex'
 Plug 'nickhutchinson/vim-cmake-syntax'
+Plug 'kchmck/vim-coffee-script'
 Plug 'neomake/neomake'
 
 Plug 'plasticboy/vim-markdown'
