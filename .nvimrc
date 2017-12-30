@@ -114,6 +114,7 @@ let g:ycm_semantic_triggers.tex = [
 autocmd! BufWritePost * Neomake
 let g:neomake_open_list = 2
 let g:neomake_list_height = 5
+let g:neomake_cpp_enabled_makers = []
 
 " vim-pandoc settings
 " Disable folding
