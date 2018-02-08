@@ -181,9 +181,9 @@ autocmd FileType c,cpp,java,php,ruby,python autocmd BufWritePre <buffer> :call <
 
 " Snakemake support
 au BufNewFile,BufRead Snakefile set syntax=snakemake
-au BufNewFile,BufRead *.rules set syntax=snakemake
 au BufNewFile,BufRead *.snakefile set syntax=snakemake
 au BufNewFile,BufRead *.snake set syntax=snakemake
+au BufNewFile,BufRead *.smk set syntax=snakemake
 
 hi clear SpellBad
 hi SpellBad cterm=underline ctermfg=red 
