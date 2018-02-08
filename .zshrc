@@ -28,9 +28,11 @@ BASE16_SHELL=$HOME/dotfiles/base16-shell/
 [ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
 
 # User configuration
+export PATH=$PATH:$HOME/Library/Python/3.6/bin
 export PATH=$PATH:$HOME/.gem/ruby/2.3.0/bin:$HOME/bin:/usr/local/bin
 export PATH=$PATH:$HOME/.conda/bin/
 export PATH=$PATH:$HOME/.cargo/bin/
+export PATH=$PATH:$HOME/go/bin/
 
 export EDITOR='nvim'
 
