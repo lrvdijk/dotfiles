@@ -17,6 +17,7 @@ Plug 'Valloric/YouCompleteMe', { 'do': 'python3 install.py --clang-completer' }
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-sleuth'
 
 Plug 'hynek/vim-python-pep8-indent'
 Plug 'https://bitbucket.org/snakemake/snakemake.git', {'rtp': 'misc/vim/'}
