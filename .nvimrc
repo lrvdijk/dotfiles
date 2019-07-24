@@ -16,7 +16,6 @@ Plug 'chriskempson/base16-vim'
 Plug 'Valloric/YouCompleteMe', { 'do': 'python3 install.py --clang-completer' }
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tpope/vim-surround'
-Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-sleuth'
 
 Plug 'hynek/vim-python-pep8-indent'
@@ -26,7 +25,7 @@ Plug 'broadinstitute/vim-wdl'
 Plug 'rust-lang/rust.vim'
 Plug 'tkztmk/vim-vala'
 Plug 'eagletmt/neco-ghc'
-Plug 'vim-pandoc/vim-pandoc'
+" Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'tikhomirov/vim-glsl'
 Plug 'lervag/vimtex'
@@ -41,6 +40,9 @@ Plug 'majutsushi/tagbar'
 Plug 'christoomey/vim-tmux-navigator'
 
 call plug#end()
+
+" Make sure to use python3
+" let g:python3_host_prog = 'python3'
 
 "
 " Other options
@@ -120,6 +122,7 @@ autocmd! BufWritePost * Neomake
 let g:neomake_open_list = 2
 let g:neomake_list_height = 5
 let g:neomake_cpp_enabled_makers = []
+let g:neomake_python_enabled_makers = ['flake8']
 
 " vim-pandoc settings
 " Disable folding
