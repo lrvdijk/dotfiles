@@ -16,7 +16,7 @@ TERM=xterm-256color
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git celery django mercurial pip python virtualenv tmux)
+plugins=(git python tmux)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -61,3 +61,4 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
+export PATH="/usr/local/opt/openjdk/bin:$PATH"
