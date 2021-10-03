@@ -32,7 +32,24 @@ export PATH="/usr/local/opt/openjdk/bin:$PATH"
 
 # Vi key bindings
 bindkey -v
+
 export KEYTIMEOUT=1
+setopt EXTENDED_GLOB
+
+# Home/end keyboard mappings
+bindkey '\e[1~' beginning-of-line
+bindkey '\e[4~' end-of-line
+
+bindkey -M vicmd "q" push-line
+
+# Search based on what you typed in already
+bindkey -M vicmd "//" history-beginning-search-backward
+bindkey -M vicmd "??" history-beginning-search-forward
+
+# Incremental search
+bindkey -M vicmd "/" history-incremental-search-backward
+bindkey -M vicmd "?" history-incremental-search-forward
+
 source "/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
 source "/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
 
