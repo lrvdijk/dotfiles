@@ -14,3 +14,4 @@ export MAKEFLAGS="-j4"
 
 # Make sure tmux also uses nice colors
 TERM=xterm-256color
+. "$HOME/.cargo/env"
