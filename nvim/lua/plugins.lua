@@ -19,8 +19,39 @@ return require('packer').startup(function(use)
   -- Color schemes
   use 'RRethy/nvim-base16'
 
-  -- Auto-completion
-  use {'neoclide/coc.nvim', branch = 'release', config = [[ require('plug_conf.coc') ]]}
+  -- Autocompletion and snippets
+  use {
+    'hrsh7th/nvim-cmp',
+    requires = { 'hrsh7th/cmp-nvim-lsp',
+                 'hrsh7th/cmp-path',
+                 'hrsh7th/cmp-buffer',
+                 'hrsh7th/cmp-omni',
+                 'dcampos/nvim-snippy',
+                 'dcampos/cmp-snippy'
+               },
+
+    config = [[ require('plug_conf.cmp') ]]
+  }
+
+  -- Language server management
+  use {
+    'neovim/nvim-lspconfig',
+    requires = {
+      -- Automatically install LSPs to stdpath for neovim
+      'williamboman/mason.nvim',
+      'williamboman/mason-lspconfig.nvim',
+      'hrsh7th/cmp-nvim-lsp',
+
+      -- Useful status updates for LSP
+      'j-hui/fidget.nvim',
+
+      -- Additional Rust tools
+      'simrat39/rust-tools.nvim'
+    },
+    config = [[ require('plug_conf.lsp') ]]
+  }
+
+  use { 'j-hui/fidget.nvim', config = [[ require('fidget').setup() ]] }
 
   -- Tree sitter for improved highlighting
   use {
@@ -37,16 +68,16 @@ return require('packer').startup(function(use)
   use { "cespare/vim-toml", ft = { "toml" }, branch = "main" }
   use 'tpope/vim-sleuth' -- Detect tabstop and shiftwidth automatically
 
-  -- Fuzzy search with LeaderF
-  use { "Yggdroot/LeaderF", cmd = "Leaderf", run = ":LeaderfInstallCExtension" }
-
   -- Telescope
   use "nvim-lua/plenary.nvim"
   use {
     "nvim-telescope/telescope.nvim",
-    cmd = "Telescope",
-    requires = { { "nvim-lua/plenary.nvim" } },
+    requires = "nvim-lua/plenary.nvim",
+    config = [[ require('plug_conf.telescope') ]],
   }
+
+  use { "nvim-telescope/telescope-fzy-native.nvim", requires="nvim-telescope/telescope.nvim",
+        after="telescope.nvim", config=[[ require('telescope').load_extension('fzy_native') ]] }
 
   -- search emoji and other symbols
   use { "nvim-telescope/telescope-symbols.nvim", after = "telescope.nvim" }

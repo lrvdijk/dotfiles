@@ -16,10 +16,16 @@ vim.opt.formatoptions:append("n")
 vim.opt.formatoptions:append("/")
 vim.opt.formatoptions:remove("o")
 
+vim.opt.backup = false
+vim.opt.writebackup = false
+vim.opt.swapfile = false
+
+vim.opt.updatetime = 250
+vim.opt.signcolumn = "yes"
+
 vim.opt.ttimeoutlen = 50
 vim.opt.errorbells = false
 vim.opt.visualbell = false
-vim.opt.swapfile = false
 vim.opt.splitbelow = true -- when splitting horizontally, move coursor to lower pane
 vim.opt.splitright = true -- when splitting vertically, mnove coursor to right pane
 
