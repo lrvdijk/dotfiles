@@ -24,7 +24,7 @@ BASE16_SHELL="${ZDOTDIR:-$HOME}/base16-shell/"
     [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
         source "$BASE16_SHELL/profile_helper.sh"
 
-base16_default
+base16_tokyo-city-terminal-dark
 
 export PATH=$PATH:/opt/homebrew/bin
 export PATH=$PATH:$HOME/bin:/usr/local/bin
