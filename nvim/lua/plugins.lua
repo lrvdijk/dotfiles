@@ -85,13 +85,17 @@ return require('packer').startup(function(use)
   -- Tabs and status line
   use { 'nvim-tree/nvim-web-devicons' }
   use { 'akinsho/bufferline.nvim', tag = "v3.*", requires = 'nvim-tree/nvim-web-devicons',
-        config = [[require('plug_conf.bufferline') ]]}
+        after={"nvim-web-devicons", "nvim-base16"}, config = [[require('plug_conf.bufferline') ]]}
   use { 'nvim-lualine/lualine.nvim', requires = { 'kyazdani42/nvim-web-devicons', opt = true},
         config = [[ require('plug_conf.lualine') ]] }
 
   -- File tree
   use { 'nvim-tree/nvim-tree.lua', requires = { 'nvim-tree/nvim-web-devicons'},
         config = [[ require('plug_conf.nvimtree') ]]}
+
+  -- Session management
+  use { 'Shatur/neovim-session-manager', requires = {'nvim-lua/plenary.nvim'}, after = {'plenary.nvim'},
+        config = [[ require('plug_conf.sessionmanager') ]] }
 
   -- Git management
   use "tpope/vim-fugitive"
