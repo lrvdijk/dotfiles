@@ -10,3 +10,8 @@ elseif vim.env['BASE16_THEME'] and "base16-" .. vim.env["BASE16_THEME"] ~= vim.g
   cmd("let base16colorspace=256")
   cmd('colorscheme base16-' .. vim.env['BASE16_THEME'])
 end
+
+local colorscheme = require('colorscheme')
+colorscheme.highlight.VertSplit = { guifg = colorscheme.colors.base02,
+                                    guibg = colorscheme.colors.base00,
+                                    gui = 'none', guisp = nil }
