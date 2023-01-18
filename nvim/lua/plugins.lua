@@ -17,7 +17,7 @@ return require('packer').startup(function(use)
 
   -- My plugins here
   -- Color schemes
-  use 'RRethy/nvim-base16'
+  use {'RRethy/nvim-base16', config = [[ require('plug_conf.base16') ]] }
 
   -- Autocompletion and snippets
   use {
@@ -103,6 +103,9 @@ return require('packer').startup(function(use)
 
   -- Notifications
   use { 'rcarriga/nvim-notify', config = [[ require('plug_conf.notify') ]] }
+
+  -- Auto save
+  use { 'Pocco81/auto-save.nvim', config = [[ require('plug_conf.autosave') ]] }
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
