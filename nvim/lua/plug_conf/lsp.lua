@@ -44,7 +44,7 @@ end
 
 local servers = {
   clangd = {},
-  pyright = {},
+  pylsp = {},
   tsserver = {},
   astro = {},
   neocmake = {},
