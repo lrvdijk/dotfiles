@@ -18,6 +18,9 @@ if [[ -s "${ZDOTDIR:-$HOME}/prezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/prezto/init.zsh"
 fi
 
+# Enbable CLOBBER again (disabled by prezto)
+setopt CLOBBER
+
 # Nice colourtheme
 BASE16_SHELL="${ZDOTDIR:-$HOME}/base16-shell/"
 [ -n "$PS1" ] && \
