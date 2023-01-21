@@ -18,6 +18,8 @@ return require('packer').startup(function(use)
   -- My plugins here
   -- Color schemes
   use {'RRethy/nvim-base16', config = [[ require('plug_conf.base16') ]] }
+  -- Indentation guides
+  use { "lukas-reineke/indent-blankline.nvim", config = [[ require('plug_conf.indent_blankline') ]] }
 
   -- Autocompletion and snippets
   use {
