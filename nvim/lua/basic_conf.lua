@@ -6,7 +6,8 @@ vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.softtabstop = 4
 vim.opt.autoindent = true
-vim.opt.laststatus = 2
+vim.opt.laststatus = 3
+vim.opt.cmdheight = 0
 
 vim.opt.number = true
 vim.opt.textwidth = 120
@@ -43,6 +44,3 @@ vim.opt.wildignore:append {"*/.git/*,*/.svn/*,*/__pycache__/*,*/build/**"}
 vim.opt.wildignore:append {"*.jpg,*.png,*.jpeg,*.bmp,*.gif,*.tiff,*.svg,*.ico"}
 vim.opt.wildignore:append {"*.aux,*.bbl,*.blg,*.brf,*.fls,*.fdb_latexmk,*.synctex.gz,*.xdv"}
 
-if vim.env["CONDA_PREFIX"] and vim.env["CONDA_PREFIX"] ~= "" then
-  vim.g.python3_host_prog = vim.env["CONDA_PREFIX"] .. "/bin/python3"
-end

@@ -13,6 +13,11 @@ vim.g.maplocalleader = ' '
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
+-- Find python3
+if vim.env["CONDA_PREFIX"] and vim.env["CONDA_PREFIX"] ~= "" then
+  vim.g.python3_host_prog = vim.env["CONDA_PREFIX"] .. "/bin/python3"
+end
+
 require('plugins')
 require('basic_conf')
 require('mappings')
