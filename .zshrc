@@ -27,7 +27,7 @@ BASE16_SHELL="${ZDOTDIR:-$HOME}/base16-shell/"
     [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
         source "$BASE16_SHELL/profile_helper.sh"
 
-export PATH=$PATH:/opt/homebrew/bin
+export PATH=/opt/homebrew/bin:$PATH
 export PATH=$PATH:$HOME/bin:/usr/local/bin
 export PATH=$PATH:$HOME/.conda/bin/
 export PATH=$PATH:$HOME/.cargo/bin/
