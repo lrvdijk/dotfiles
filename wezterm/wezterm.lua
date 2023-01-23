@@ -1,4 +1,5 @@
 local wezterm = require('wezterm')
+local ssh_domains = require('ssh_servers')
 
 return {
     -- Font and colors
@@ -29,4 +30,7 @@ return {
             action = wezterm.action.SendString '\x01',
         },
     },
+
+    -- SSH domains
+    ssh_domains = ssh_domains
 }
