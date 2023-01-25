@@ -105,7 +105,9 @@ return require('packer').startup(function(use)
 
   -- Tmux
   use { "tmux-plugins/vim-tmux", ft = { "tmux" } }
-  use 'christoomey/vim-tmux-navigator'
+
+  -- Tmux/wezterm pane navigation integration
+  use { 'numToStr/Navigator.nvim', config = [[ require('plug_conf.navigator') ]]}
 
   -- Notifications
   use { 'rcarriga/nvim-notify', config = [[ require('plug_conf.notify') ]] }
