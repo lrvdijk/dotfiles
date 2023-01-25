@@ -3,3 +3,4 @@
 nvim/plugin
 .zcompdump
 .zsh_sessions
+wezterm/ssh_servers.lua
