@@ -35,6 +35,14 @@ wezterm.on('ActivatePaneDirection-down', function(window, pane)
     conditionalActivatePane(window, pane, 'Down', 'j')
 end)
 
+wezterm.on('update-status', function(window, pane)
+    local meta = pane:get_metadata() or {}
+    if meta.is_tardy then
+        local secs = meta.since_last_response_ms / 1000.0
+        window:set_right_status(string.format('tardy: %5.1fs⏳', secs))
+    end
+end)
+
 return {
     -- Font and colors
     font = wezterm.font 'Fira Code',
