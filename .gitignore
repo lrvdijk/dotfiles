@@ -2,3 +2,4 @@
 .zsh_history
 nvim/plugin
 .zcompdump
+.zsh_sessions
