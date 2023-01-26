@@ -6,8 +6,9 @@ local function isViProcess(pane)
     -- get_foreground_process_name On Linux, macOS and Windows,
     -- the process can be queried to determine this path. Other operating systems
     -- (notably, FreeBSD and other unix systems) are not currently supported
-    return pane:get_foreground_process_name():find('n?vim') ~= nil
-    -- return pane:get_title():find("n?vim") ~= nil
+    -- return pane:get_foreground_process_name():find('n?vim') ~= nil
+    -- Use get_title as it works for multiplexed sessions too
+    return pane:get_title():find("n?vim") ~= nil
 end
 
 local function conditionalActivatePane(window, pane, pane_direction, vim_direction)
@@ -35,11 +36,23 @@ wezterm.on('ActivatePaneDirection-down', function(window, pane)
     conditionalActivatePane(window, pane, 'Down', 'j')
 end)
 
+wezterm.on('update-status', function(window, pane)
+    local meta = pane:get_metadata() or {}
+    if meta.is_tardy then
+        local secs = meta.since_last_response_ms / 1000.0
+        window:set_right_status(string.format('tardy: %5.1fs⏳', secs))
+    else
+        window:set_right_status("")
+    end
+end)
+
 return {
     -- Font and colors
     font = wezterm.font 'Fira Code',
-    font_size = 10.5,
-    color_scheme = 'DanQing (base16)',
+    font_size = 11,
+    freetype_load_target = "Light",
+    freetype_render_target = "HorizontalLcd",
+    color_scheme = 'Tomorrow Night Eighties',
 
     -- Key mappings
     leader = { key = 'a', mods = 'CTRL', timeout_milliseconds = 1000 },
