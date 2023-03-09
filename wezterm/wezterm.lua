@@ -12,13 +12,24 @@ local function isViProcess(pane)
 end
 
 local function conditionalActivatePane(window, pane, pane_direction, vim_direction)
+    local vim_pane_changed = false
+
     if isViProcess(pane) then
+        local before = pane:get_cursor_position()
         window:perform_action(
             -- This should match the keybinds you set in Neovim.
             wezterm.action.SendKey({ key = vim_direction, mods = 'CTRL' }),
             pane
         )
-    else
+        wezterm.sleep_ms(100)
+        local after = pane:get_cursor_position()
+
+        if before.x ~= after.x and before.y ~= after.y then
+            vim_pane_changed = true
+        end
+    end
+
+    if not vim_pane_changed then
         window:perform_action(wezterm.action.ActivatePaneDirection(pane_direction), pane)
     end
 end
