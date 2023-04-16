@@ -53,7 +53,7 @@ return {
     font_size = 12.5,
     -- freetype_load_target = "Light",
     -- freetype_render_target = "HorizontalLcd",
-    color_scheme = 'Tomorrow Night Eighties',
+    color_scheme = 'Tomorrow Night',
 
     inactive_pane_hsb = {
         saturation = 0.9,
