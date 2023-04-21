@@ -21,4 +21,5 @@ end
 require('plugins')
 require('basic_conf')
 require('mappings')
+require('diagnostics')
 require('autocommands')

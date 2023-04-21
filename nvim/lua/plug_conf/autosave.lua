@@ -1,2 +1,3 @@
-require('auto-save').setup()
-
+require('auto-save').setup({
+  debounce_delay = 500
+})
