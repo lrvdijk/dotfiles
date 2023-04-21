@@ -58,7 +58,7 @@ return require('packer').startup(function(use)
   -- Tree sitter for improved highlighting
   use {
     "nvim-treesitter/nvim-treesitter",
-    run = ":TSUpdate",
+    run = ":TSUpdate all",
     config = [[ require('plug_conf.treesitter') ]],
   }
 
