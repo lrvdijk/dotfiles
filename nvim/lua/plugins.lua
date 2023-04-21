@@ -84,10 +84,8 @@ return require('packer').startup(function(use)
   -- search emoji and other symbols
   use { "nvim-telescope/telescope-symbols.nvim", after = "telescope.nvim" }
 
-  -- Tabs and status line
+  -- Status line
   use { 'nvim-tree/nvim-web-devicons' }
-  use { 'akinsho/bufferline.nvim', tag = "v3.*", requires = 'nvim-tree/nvim-web-devicons',
-        after={"nvim-web-devicons", "nvim-base16"}, config = [[require('plug_conf.bufferline') ]]}
   use { 'nvim-lualine/lualine.nvim', requires = { 'kyazdani42/nvim-web-devicons', opt = true},
         config = [[ require('plug_conf.lualine') ]] }
 
