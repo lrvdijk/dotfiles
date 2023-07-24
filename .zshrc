@@ -33,6 +33,7 @@ export PATH=$PATH:$HOME/.conda/bin/
 export PATH=$PATH:$HOME/.cargo/bin/
 export PATH=$PATH:$HOME/go/bin/
 export PATH=$PATH:/opt/homebrew/opt/sqlite/bin
+export PATH=$PATH:$HOME/edirect/
 export PATH="/usr/local/opt/openjdk/bin:$PATH"
 
 # Vi key bindings
