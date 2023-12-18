@@ -49,9 +49,14 @@ end)
 
 return {
     -- Font and colors
-    font = wezterm.font 'Fira Code',
+    font = wezterm.font {
+        family = "Monaspace Krypton",
+        weight = "Light",
+        harfbuzz_features = {"calt", "clig", "liga", "ss01", "ss02", "ss03"},
+    },
     font_size = 12.5,
-    -- freetype_load_target = "Light",
+    line_height = 1.1,
+    freetype_load_target = "Light",
     -- freetype_render_target = "HorizontalLcd",
     color_scheme = 'Tomorrow Night',
 
