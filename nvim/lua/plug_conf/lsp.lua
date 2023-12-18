@@ -1,23 +1,5 @@
-rt = require("rust-tools")
-
-
 --  This function gets run when an LSP connects to a particular buffer.
-local on_attach = function(_, bufnr)
-  -- Enable semantic tokens if supported
-  local caps = client.server_capabilities
-  if caps.semanticTokensProvider and caps.semanticTokensProvider.full then
-    local augroup = vim.api.nvim_create_augroup("SemanticTokens", {})
-    vim.api.nvim_create_autocmd("TextChanged", {
-      group = augroup,
-      buffer = bufnr,
-      callback = function()
-        vim.lsp.buf.semantic_tokens_full()
-      end,
-    })
-    -- fire it first time on load as well
-    vim.lsp.buf.semantic_tokens_full()
-  end
-
+local on_attach = function(client, bufnr)
   -- We create a function that lets us more easily define mappings specific
   -- for LSP related items. It sets the mode, buffer and description for us each time.
   local nmap = function(keys, func, desc)
@@ -29,7 +11,9 @@ local on_attach = function(_, bufnr)
   end
 
   if vim.bo.filetype == "rust" then
-    nmap('<C-space>', rt.hover_actions.hover_actions, { bufnr = bufnr })
+    local rt = require("rust-tools")
+    nmap('<C-space>', rt.hover_actions.hover_actions, "Rust hover actions")
+    nmap("<Leader>a", rt.code_action_group.code_action_group, "Rust code [A]ction group")
   end
 
   nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
@@ -80,66 +64,37 @@ local servers = {
   tsserver = {},
   astro = {},
   neocmake = {},
-  rust_analyzer = {},
 }
 
--- nvim-cmp supports additional completion capabilities, so broadcast that to servers
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
--- Setup mason so it can manage external tooling
-require('mason').setup()
+local setup = function()
+  -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
+  local capabilities = vim.lsp.protocol.make_client_capabilities()
+  capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
--- Ensure the servers above are installed
-local mason_lspconfig = require 'mason-lspconfig'
+  -- Setup mason so it can manage external tooling
+  require('mason').setup()
 
-mason_lspconfig.setup {
-  ensure_installed = vim.tbl_keys(servers),
+  -- Ensure the servers above are installed
+  local mason_lspconfig = require 'mason-lspconfig'
+
+  mason_lspconfig.setup {
+    ensure_installed = vim.tbl_keys(servers),
+  }
+
+  mason_lspconfig.setup_handlers {
+    function(server_name)
+      require('lspconfig')[server_name].setup {
+        capabilities = capabilities,
+        on_attach = on_attach,
+        settings = servers[server_name],
+      }
+    end,
+    ["rust_analyzer"] = function() end,
+  }
+end
+
+return {
+  on_attach = on_attach,
+  setup = setup
 }
-
-mason_lspconfig.setup_handlers {
-  function(server_name)
-    require('lspconfig')[server_name].setup {
-      capabilities = capabilities,
-      on_attach = on_attach,
-      settings = servers[server_name],
-    }
-  end,
-}
-
--- Configure LSP through rust-tools.nvim plugin.
--- rust-tools will configure and enable certain LSP features for us.
--- See https://github.com/simrat39/rust-tools.nvim#configuration
-local rt_opts = {
-  tools = {
-    runnables = {
-      use_telescope = true,
-    },
-    inlay_hints = {
-      auto = true,
-      show_parameter_hints = false,
-      parameter_hints_prefix = "",
-      other_hints_prefix = "",
-    },
-  },
-
-  -- all the opts to send to nvim-lspconfig
-  -- these override the defaults set by rust-tools.nvim
-  -- see https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md#rust_analyzer
-  server = {
-    -- on_attach is a callback called when the language server attachs to the buffer
-    on_attach = on_attach,
-    settings = {
-      -- to enable rust-analyzer settings visit:
-      -- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
-      ["rust-analyzer"] = {
-        -- enable clippy on save
-        checkOnSave = {
-          command = "clippy",
-        },
-      },
-    },
-  },
-}
-
-rt.setup(rt_opts)

@@ -1,121 +1,204 @@
-local ensure_packer = function()
-  local fn = vim.fn
-  local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
-  if fn.empty(fn.glob(install_path)) > 0 then
-    fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
-    vim.cmd [[packadd packer.nvim]]
-    return true
-  end
-  return false
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
 end
+vim.opt.rtp:prepend(lazypath)
 
-local packer_bootstrap = ensure_packer()
+require("lazy").setup({
+  {
+    "RRethy/nvim-base16",
+    lazy = false, -- make sure we load this during startup if it is your main colorscheme
+    priority = 1000, -- make sure to load this before all the other start plugins
+    config = function()
+      require('plug_conf.base16')
+    end,
+  },
 
-return require('packer').startup(function(use)
-  use { 'lewis6991/impatient.nvim', config = [[ require('impatient') ]] }
-  use 'wbthomason/packer.nvim'
+  -- Autocompletion
+  {
+    "hrsh7th/nvim-cmp",
+    -- load cmp on InsertEnter
+    event = {"InsertEnter", "CmdlineEnter"},
 
-  -- My plugins here
-  -- Color schemes
-  use {'RRethy/nvim-base16', config = [[ require('plug_conf.base16') ]] }
-  -- Indentation guides
-  use { "lukas-reineke/indent-blankline.nvim", config = [[ require('plug_conf.indent_blankline') ]] }
+    -- these dependencies will only be loaded when cmp loads
+    -- dependencies are always lazy-loaded unless specified otherwise
+    dependencies = {
+      'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-nvim-lsp-signature-help',
+      'hrsh7th/cmp-buffer',
+      'hrsh7th/cmp-path',
+      'hrsh7th/cmp-cmdline',
+      'hrsh7th/cmp-omni',
+      'dcampos/nvim-snippy',
+      'dcampos/cmp-snippy',
+      'petertriho/cmp-git',
+    },
+    config = function()
+      require('plug_conf.cmp')
+    end,
+  },
 
-  -- Autocompletion and snippets
-  use {
-    'hrsh7th/nvim-cmp',
-    requires = { 'hrsh7th/cmp-nvim-lsp',
-                 'hrsh7th/cmp-path',
-                 'hrsh7th/cmp-buffer',
-                 'hrsh7th/cmp-omni',
-                 'dcampos/nvim-snippy',
-                 'dcampos/cmp-snippy'
-               },
+  'hrsh7th/cmp-nvim-lsp',
+  'hrsh7th/cmp-nvim-lsp-signature-help',
+  'hrsh7th/cmp-buffer',
+  'hrsh7th/cmp-path',
+  'hrsh7th/cmp-cmdline',
+  'hrsh7th/cmp-omni',
+  'dcampos/nvim-snippy',
+  'dcampos/cmp-snippy',
+  'petertriho/cmp-git',
 
-    config = [[ require('plug_conf.cmp') ]]
-  }
+  -- Notifications
+  {
+    'j-hui/fidget.nvim',
+    config = function()
+      require('fidget').setup()
+    end,
+  },
+
+  -- Telescope
+  "nvim-lua/plenary.nvim",
+
+  {
+    "nvim-telescope/telescope.nvim",
+    branch = "0.1.x",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
+    config = function()
+      require('plug_conf.telescope')
+    end,
+  },
+
+  {
+    "nvim-telescope/telescope-fzy-native.nvim",
+    dependencies  = {
+      "nvim-telescope/telescope.nvim",
+    },
+    config=function()
+      require('telescope').load_extension('fzy_native')
+    end,
+  },
+
+  -- search emoji and other symbols
+  {
+    "nvim-telescope/telescope-symbols.nvim",
+    dependencies = {
+      "nvim-telescope/telescope.nvim"
+    }
+  },
 
   -- Language server management
-  use {
+  'williamboman/mason.nvim',
+  {
+    'williamboman/mason-lspconfig.nvim',
+    dependencies = {
+      'williamboman/mason.nvim'
+    },
+  },
+  {
     'neovim/nvim-lspconfig',
-    requires = {
-      -- Automatically install LSPs to stdpath for neovim
+    dependencies = {
       'williamboman/mason.nvim',
       'williamboman/mason-lspconfig.nvim',
       'hrsh7th/cmp-nvim-lsp',
 
       -- Useful status updates for LSP
       'j-hui/fidget.nvim',
-
-      -- Additional Rust tools
-      'simrat39/rust-tools.nvim'
     },
-    config = [[ require('plug_conf.lsp') ]]
-  }
-
-  use { 'j-hui/fidget.nvim', config = [[ require('fidget').setup() ]] }
+    config = function()
+      require('plug_conf.lsp').setup()
+    end
+  },
 
   -- Tree sitter for improved highlighting
-  use {
+  {
     "nvim-treesitter/nvim-treesitter",
-    run = ":TSUpdate all",
-    config = [[ require('plug_conf.treesitter') ]],
-  }
+    build = function()
+      vim.command([[:TSUpdate all]])
+    end,
+    config = function()
+      require('plug_conf.treesitter')
+    end,
+  },
 
   -- Python helpers
-  use { "Vimjas/vim-python-pep8-indent", ft = { "python" } }
-  use { "jeetsukumaran/vim-pythonsense", ft = { "python" } }
+  { "Vimjas/vim-python-pep8-indent", ft = { "python" } },
+  { "jeetsukumaran/vim-pythonsense", ft = { "python" } },
+
+  -- Additional Rust tools
+  {
+    'simrat39/rust-tools.nvim',
+    dependencies = {
+      'neovim/nvim-lspconfig',
+      'nvim-telescope/telescope.nvim',
+    },
+    ft = { 'rust' },
+    config = function()
+      require('plug_conf.rust_tools')
+    end,
+  },
 
   -- Other languages
-  use { "cespare/vim-toml", ft = { "toml" }, branch = "main" }
-  use 'tpope/vim-sleuth' -- Detect tabstop and shiftwidth automatically
-
-  -- Telescope
-  use "nvim-lua/plenary.nvim"
-  use {
-    "nvim-telescope/telescope.nvim",
-    requires = "nvim-lua/plenary.nvim",
-    config = [[ require('plug_conf.telescope') ]],
-  }
-
-  use { "nvim-telescope/telescope-fzy-native.nvim", requires="nvim-telescope/telescope.nvim",
-        after="telescope.nvim", config=[[ require('telescope').load_extension('fzy_native') ]] }
-
-  -- search emoji and other symbols
-  use { "nvim-telescope/telescope-symbols.nvim", after = "telescope.nvim" }
+  { "cespare/vim-toml", ft = { "toml" }, branch = "main" },
+  'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
 
   -- Status line
-  use { 'nvim-tree/nvim-web-devicons' }
-  use { 'nvim-lualine/lualine.nvim', requires = { 'kyazdani42/nvim-web-devicons', opt = true},
-        config = [[ require('plug_conf.lualine') ]] }
+  'nvim-tree/nvim-web-devicons',
+
+  {
+    'nvim-lualine/lualine.nvim',
+    dependencies = {
+      'kyazdani42/nvim-web-devicons'
+    },
+    config = function()
+      require('plug_conf.lualine')
+    end,
+  },
 
   -- File tree
-  use { 'nvim-tree/nvim-tree.lua', requires = { 'nvim-tree/nvim-web-devicons'},
-        config = [[ require('plug_conf.nvimtree') ]]}
+  {
+    'nvim-tree/nvim-tree.lua',
+    dependencies = {
+      'nvim-tree/nvim-web-devicons'
+    },
+    config = function()
+      require('plug_conf.nvimtree')
+    end
+  },
 
   -- Session management
-  use { 'Shatur/neovim-session-manager', requires = {'nvim-lua/plenary.nvim'}, after = {'plenary.nvim'},
-        config = [[ require('plug_conf.sessionmanager') ]] }
+  {
+    'Shatur/neovim-session-manager',
+    dependencies = {
+      'nvim-lua/plenary.nvim'
+    },
+    config = function()
+      require('plug_conf.sessionmanager')
+    end
+  },
 
   -- Git management
-  use "tpope/vim-fugitive"
-  use { "lewis6991/gitsigns.nvim", config = [[ require('plug_conf.gitsigns') ]] }
+  "tpope/vim-fugitive",
+  { "lewis6991/gitsigns.nvim", config = function() require('plug_conf.gitsigns') end },
 
   -- Tmux
-  use { "tmux-plugins/vim-tmux", ft = { "tmux" } }
+  { "tmux-plugins/vim-tmux", ft = { "tmux" } },
 
   -- Tmux/wezterm pane navigation integration
-  use { 'numToStr/Navigator.nvim', config = [[ require('plug_conf.navigator') ]]}
+  { 'numToStr/Navigator.nvim', config = function() require('plug_conf.navigator') end},
 
   -- Notifications
-  use { 'rcarriga/nvim-notify', config = [[ require('plug_conf.notify') ]] }
+  { 'rcarriga/nvim-notify', config = function() require('plug_conf.notify') end},
 
   -- Auto save
-  use { 'Pocco81/auto-save.nvim', config = [[ require('plug_conf.autosave') ]] }
+  { 'Pocco81/auto-save.nvim', config = function() require('plug_conf.autosave') end},
 
-  -- Automatically set up your configuration after cloning packer.nvim
-  -- Put this at the end after all plugins
-  if packer_bootstrap then
-    require('packer').sync()
-  end
-end)
+})
