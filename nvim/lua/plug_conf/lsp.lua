@@ -13,7 +13,7 @@ local on_attach = function(client, bufnr)
   if vim.bo.filetype == "rust" then
     local rt = require("rust-tools")
     nmap('<C-space>', rt.hover_actions.hover_actions, "Rust hover actions")
-    nmap("<Leader>a", rt.code_action_group.code_action_group, "Rust code [A]ction group")
+    nmap("<leader>a", rt.code_action_group.code_action_group, "Rust code [A]ction group")
   end
 
   nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
@@ -25,6 +25,7 @@ local on_attach = function(client, bufnr)
   nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
   nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
   nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+  nmap('<leader>sd', require('telescope.builtin').diagnostics, '[S]how [D]iagnostics')
 
   -- See `:help K` for why this keymap
   nmap('K', vim.lsp.buf.hover, 'Hover Documentation')

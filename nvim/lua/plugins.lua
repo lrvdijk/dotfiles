@@ -121,9 +121,7 @@ require("lazy").setup({
   -- Tree sitter for improved highlighting
   {
     "nvim-treesitter/nvim-treesitter",
-    build = function()
-      vim.command([[:TSUpdate all]])
-    end,
+    build = ":TSUpdate",
     config = function()
       require('plug_conf.treesitter')
     end,
