@@ -56,9 +56,9 @@ return {
     },
     font_size = 12.5,
     line_height = 1.1,
-    freetype_load_target = "Light",
+    -- freetype_load_target = "Light",
     -- freetype_render_target = "HorizontalLcd",
-    color_scheme = 'Tomorrow Night',
+    color_scheme = 'Ayu Mirage (Gogh)',
 
     inactive_pane_hsb = {
         saturation = 0.9,
