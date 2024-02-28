@@ -13,12 +13,20 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   {
-    "RRethy/nvim-base16",
-    lazy = false, -- make sure we load this during startup if it is your main colorscheme
-    priority = 1000, -- make sure to load this before all the other start plugins
-    config = function()
-      require('plug_conf.base16')
-    end,
+    "navarasu/onedark.nvim",
+    lazy=False,
+    priority=1000,
+    opts = {
+      style = 'warmer',
+      transparent = true,
+    },
+
+    config = function(plugin, opts)
+      local onedark = require('onedark')
+
+      onedark.setup(opts)
+      onedark.load()
+    end
   },
 
   -- Autocompletion
@@ -156,9 +164,9 @@ require("lazy").setup({
     dependencies = {
       'kyazdani42/nvim-web-devicons'
     },
-    config = function()
-      require('plug_conf.lualine')
-    end,
+    opts = {
+      theme = "onedark",
+    }
   },
 
   -- File tree
@@ -197,6 +205,12 @@ require("lazy").setup({
   { 'rcarriga/nvim-notify', config = function() require('plug_conf.notify') end},
 
   -- Auto save
-  { 'Pocco81/auto-save.nvim', config = function() require('plug_conf.autosave') end},
-
+  {
+    'okuuva/auto-save.nvim',
+    event = { "InsertLeave", "TextChanged", "BufLeave", "FocusLost" },
+    opts = {
+      debounce_delay = 500,
+      message = nil,
+    }
+  }
 })

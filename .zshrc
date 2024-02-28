@@ -22,10 +22,10 @@ fi
 setopt CLOBBER
 
 # Nice colourtheme
-BASE16_SHELL="${ZDOTDIR:-$HOME}/base16-shell/"
-[ -n "$PS1" ] && \
-    [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
-        source "$BASE16_SHELL/profile_helper.sh"
+# BASE16_SHELL="${ZDOTDIR:-$HOME}/base16-shell/"
+# [ -n "$PS1" ] && \
+#     [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
+#         source "$BASE16_SHELL/profile_helper.sh"
 
 export PATH=/opt/homebrew/bin:$PATH
 export PATH=$PATH:$HOME/bin:/usr/local/bin
