@@ -11,13 +11,12 @@ local on_attach = function(client, bufnr)
   end
 
   if vim.bo.filetype == "rust" then
-    local rt = require("rust-tools")
-    nmap('<C-space>', rt.hover_actions.hover_actions, "Rust hover actions")
-    nmap("<leader>a", rt.code_action_group.code_action_group, "Rust code [A]ction group")
+    -- nmap("<leader>ca", function() vim.cmd.RustLsp('codeAction') end, "Rust [C]ode [A]ction")
+  else
+    nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
   end
 
   nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
-  nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
   nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
   nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')

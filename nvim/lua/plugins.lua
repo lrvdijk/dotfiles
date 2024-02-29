@@ -16,15 +16,14 @@ require("lazy").setup({
     "navarasu/onedark.nvim",
     lazy=False,
     priority=1000,
-    opts = {
-      style = 'warmer',
-      transparent = true,
-    },
 
     config = function(plugin, opts)
       local onedark = require('onedark')
 
-      onedark.setup(opts)
+      onedark.setup({
+        style = 'darker',
+        transparent = false,
+      })
       onedark.load()
     end
   },
@@ -47,6 +46,7 @@ require("lazy").setup({
       'dcampos/nvim-snippy',
       'dcampos/cmp-snippy',
       'petertriho/cmp-git',
+      'ray-x/cmp-treesitter',
     },
     config = function()
       require('plug_conf.cmp')
@@ -62,6 +62,7 @@ require("lazy").setup({
   'dcampos/nvim-snippy',
   'dcampos/cmp-snippy',
   'petertriho/cmp-git',
+  'ray-x/cmp-treesitter',
 
   -- Notifications
   {
@@ -135,20 +136,69 @@ require("lazy").setup({
     end,
   },
 
+  -- Neovim native inlay hint configuration
+  {
+    "MysticalDevil/inlay-hints.nvim",
+    event = "LspAttach",
+    dependencies = { "neovim/nvim-lspconfig" },
+    config = function()
+        require("inlay-hints").setup()
+    end
+  },
+
   -- Python helpers
   { "Vimjas/vim-python-pep8-indent", ft = { "python" } },
   { "jeetsukumaran/vim-pythonsense", ft = { "python" } },
 
   -- Additional Rust tools
   {
-    'simrat39/rust-tools.nvim',
-    dependencies = {
-      'neovim/nvim-lspconfig',
-      'nvim-telescope/telescope.nvim',
-    },
+    'mrcjkb/rustaceanvim',
+    version = '^4', -- Recommended
     ft = { 'rust' },
-    config = function()
-      require('plug_conf.rust_tools')
+    init = function()
+      vim.g.rustaceanvim = {
+        tools = {
+          use_clippy = true,
+        },
+        server = {
+          default_settings = {
+            ['rust-analyzer'] = {
+              inlayHints = {
+                bindingModeHints = {
+                  enable = false,
+                },
+                chainingHints = {
+                  enable = true,
+                },
+                closingBraceHints = {
+                  enable = true,
+                  minLines = 25,
+                },
+                closureReturnTypeHints = {
+                  enable = "never",
+                },
+                lifetimeElisionHints = {
+                  enable = "never",
+                  useParameterNames = false,
+                },
+                maxLength = 25,
+                parameterHints = {
+                  enable = true,
+                },
+                reborrowHints = {
+                  enable = "never",
+                },
+                renderColons = true,
+                typeHints = {
+                  enable = true,
+                  hideClosureInitialization = false,
+                  hideNamedConstructor = false,
+                },
+              },
+            }
+          }
+        },
+      }
     end,
   },
 
@@ -175,9 +225,7 @@ require("lazy").setup({
     dependencies = {
       'nvim-tree/nvim-web-devicons'
     },
-    config = function()
-      require('plug_conf.nvimtree')
-    end
+    opts = {},
   },
 
   -- Session management
@@ -186,9 +234,11 @@ require("lazy").setup({
     dependencies = {
       'nvim-lua/plenary.nvim'
     },
-    config = function()
-      require('plug_conf.sessionmanager')
-    end
+    config = function(plugin, opts)
+      require('session_manager').setup({
+        autoload_mode = require('session_manager.config').AutoloadMode.CurrentDir,
+      })
+    end,
   },
 
   -- Git management
@@ -200,9 +250,6 @@ require("lazy").setup({
 
   -- Tmux/wezterm pane navigation integration
   { 'numToStr/Navigator.nvim', config = function() require('plug_conf.navigator') end},
-
-  -- Notifications
-  { 'rcarriga/nvim-notify', config = function() require('plug_conf.notify') end},
 
   -- Auto save
   {
