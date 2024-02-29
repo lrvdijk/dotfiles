@@ -54,11 +54,11 @@ return {
         weight = "Light",
         harfbuzz_features = {"calt", "clig", "liga", "ss01", "ss02", "ss03"},
     },
-    font_size = 12.5,
-    line_height = 1.1,
+    font_size = 12,
+    line_height = 1.05,
     -- freetype_load_target = "Light",
     -- freetype_render_target = "HorizontalLcd",
-    color_scheme = 'One Dark (Gogh)',
+    color_scheme = 'OneDark (Gogh)',
 
     inactive_pane_hsb = {
         saturation = 0.9,
