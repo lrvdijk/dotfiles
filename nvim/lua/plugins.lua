@@ -22,7 +22,7 @@ require("lazy").setup({
 
       onedark.setup({
         style = 'darker',
-        transparent = false,
+        transparent = true,
       })
       onedark.load()
     end
