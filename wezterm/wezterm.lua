@@ -58,7 +58,7 @@ return {
     line_height = 1.05,
     -- freetype_load_target = "Light",
     -- freetype_render_target = "HorizontalLcd",
-    color_scheme = 'OneDark (Gogh)',
+    color_scheme = 'OneHalfDark',
 
     inactive_pane_hsb = {
         saturation = 0.9,
