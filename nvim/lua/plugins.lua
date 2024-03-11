@@ -13,18 +13,17 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   {
-    "navarasu/onedark.nvim",
+    "rebelot/kanagawa.nvim",
     lazy=False,
     priority=1000,
 
     config = function(plugin, opts)
-      local onedark = require('onedark')
-
-      onedark.setup({
-        style = 'darker',
+      require('kanagawa').setup({
         transparent = true,
       })
-      onedark.load()
+
+      vim.cmd 'colorscheme kanagawa'
+      require('kanagawa').load("wave")
     end
   },
 
