@@ -6,18 +6,13 @@ local cmp = require('cmp')
 local has_words_before = function()
   unpack = unpack or table.unpack
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") ~= nil
 end
 
 local tab_intellij_like = function(fallback)
   -- This little snippet will confirm with tab, and if no entry is selected, will confirm the first item
   if cmp.visible() then
-    local entry = cmp.get_selected_entry()
-    if not entry then
-      cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
-    else
-      cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
-    end
+    cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
   elseif snippy.can_expand_or_advance() then
     snippy.expand_or_advance()
   else
@@ -28,7 +23,10 @@ end
 local cr_intellij_like = function(fallback)
   -- This little snippet will confirm with cr, and if no entry is selected, will confirm the first item
   if cmp.visible() and has_words_before() then
-    cmp.confirm({ select = true })
+    local entry = cmp.get_selected_entry()
+    if entry then
+      cmp.confirm({ select = true })
+    end
   else
     fallback()
   end
@@ -123,3 +121,26 @@ cmp.setup.cmdline(':', {
     { name = 'cmdline' }
   })
 })
+
+
+-- Integration with autopair
+local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+local handlers = require('nvim-autopairs.completion.handlers')
+
+cmp.event:on(
+  'confirm_done',
+  cmp_autopairs.on_confirm_done({
+    filetypes = {
+      -- "*" is a alias to all filetypes
+      ["*"] = {
+        ["("] = {
+          kind = {
+            cmp.lsp.CompletionItemKind.Function,
+            cmp.lsp.CompletionItemKind.Method,
+          },
+          handler = handlers["*"]
+        }
+      },
+    }
+  })
+)

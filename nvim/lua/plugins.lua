@@ -46,6 +46,7 @@ require("lazy").setup({
       'dcampos/cmp-snippy',
       'petertriho/cmp-git',
       'ray-x/cmp-treesitter',
+      'windwp/nvim-autopairs',
     },
     config = function()
       require('plug_conf.cmp')
@@ -145,6 +146,13 @@ require("lazy").setup({
     end
   },
 
+  -- Auto pair closer
+  {
+    'windwp/nvim-autopairs',
+    event = "InsertEnter",
+    config = true,
+  },
+
   -- Python helpers
   { "Vimjas/vim-python-pep8-indent", ft = { "python" } },
   { "jeetsukumaran/vim-pythonsense", ft = { "python" } },
@@ -160,6 +168,8 @@ require("lazy").setup({
           use_clippy = true,
         },
         server = {
+          on_attach = require('plug_conf.lsp').on_attach,
+
           default_settings = {
             ['rust-analyzer'] = {
               inlayHints = {
