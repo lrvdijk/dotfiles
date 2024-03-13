@@ -11,7 +11,8 @@ local on_attach = function(client, bufnr)
   end
 
   if vim.bo.filetype == "rust" then
-    -- nmap("<leader>ca", function() vim.cmd.RustLsp('codeAction') end, "Rust [C]ode [A]ction")
+    nmap("<leader>ca", function() vim.cmd.RustLsp('codeAction') end, "Rust [C]ode [A]ction")
+    nmap("<leader>ru", function() vim.cmd.RustLsp('runnables') end, "Rust [R][u]nnables")
   else
     nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
   end
