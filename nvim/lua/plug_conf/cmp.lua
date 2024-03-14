@@ -1,4 +1,4 @@
-vim.opt.completeopt = {"menu", "menuone", "preview"}
+vim.opt.completeopt = "menu,menuone,preview,noselect"
 
 local snippy = require("snippy")
 local cmp = require('cmp')
@@ -6,7 +6,7 @@ local cmp = require('cmp')
 local has_words_before = function()
   unpack = unpack or table.unpack
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") ~= nil
+  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
 local tab_intellij_like = function(fallback)
@@ -25,7 +25,7 @@ local cr_intellij_like = function(fallback)
   if cmp.visible() and has_words_before() then
     local entry = cmp.get_selected_entry()
     if entry then
-      cmp.confirm({ select = true })
+      cmp.confirm()
     end
   else
     fallback()
@@ -52,47 +52,51 @@ local tab_confirm_if_one_completion = function(fallback)
 end
 
 cmp.setup {
-    snippet = {
-      -- REQUIRED - you must specify a snippet engine
-      expand = function(args)
-        snippy.expand_snippet(args.body) -- For `snippy` users.
-      end,
-    },
-    window = {
-      -- completion = cmp.config.window.bordered(),
-      -- documentation = cmp.config.window.bordered(),
-    },
-    mapping = cmp.mapping.preset.insert({
-      ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-      ['<C-f>'] = cmp.mapping.scroll_docs(4),
-      ['<C-e>'] = cmp.mapping.abort(),
-      ['<CR>'] = cmp.mapping({
-        i = cr_intellij_like,
-        s = cmp.mapping.confirm({ select = true }),
-      }),
-      ["<Tab>"] = cmp.mapping({
-        i = tab_intellij_like,
-        s = tab_confirm_if_one_completion,
-        c = tab_confirm_if_one_completion,
-      }),
-      ["<S-Tab>"] = cmp.mapping(function(fallback)
-          -- This little snippet will confirm with tab, and if no entry is selected, will confirm the first item
-          if cmp.visible() then
-            cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
-          elseif snippy.can_jump(-1) then
-            snippy.previous()
-          else
-            fallback()
-          end
-        end, {"i","s"}),
+  completion = {
+    completeopt = "menu,menuone,preview,noselect" -- or vim.opt.completeopt:get()
+  },
+  preselect = cmp.PreselectMode.None,
+  snippet = {
+    -- REQUIRED - you must specify a snippet engine
+    expand = function(args)
+      snippy.expand_snippet(args.body) -- For `snippy` users.
+    end,
+  },
+  window = {
+    -- completion = cmp.config.window.bordered(),
+    -- documentation = cmp.config.window.bordered(),
+  },
+  mapping = cmp.mapping.preset.insert({
+    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-e>'] = cmp.mapping.abort(),
+    ['<CR>'] = cmp.mapping({
+      i = cr_intellij_like,
+      s = cmp.mapping.confirm({ select = true }),
     }),
-    sources = cmp.config.sources(
-      { { name = 'nvim_lsp' } },
-      { { name = 'nvim_lsp_signature_help' } },
-      { { name = 'path' } },
-      { { name = 'snippy' } }, -- For snippy users.
-      { { name = 'treesitter' } }
-    )
+    ["<Tab>"] = cmp.mapping({
+      i = tab_intellij_like,
+      s = tab_confirm_if_one_completion,
+      c = tab_confirm_if_one_completion,
+    }),
+    ["<S-Tab>"] = cmp.mapping(function(fallback)
+      -- This little snippet will confirm with tab, and if no entry is selected, will confirm the first item
+      if cmp.visible() then
+        cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
+      elseif snippy.can_jump(-1) then
+        snippy.previous()
+      else
+        fallback()
+      end
+    end, {"i","s"}),
+  }),
+  sources = cmp.config.sources(
+    { { name = 'nvim_lsp' } },
+    { { name = 'nvim_lsp_signature_help' } },
+    { { name = 'path' } },
+    { { name = 'snippy' } }, -- For snippy users.
+    { { name = 'treesitter' } }
+  )
 }
 
 -- Set configuration for specific filetype.
