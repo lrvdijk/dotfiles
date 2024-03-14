@@ -50,14 +50,13 @@ end)
 return {
     -- Font and colors
     font = wezterm.font {
-        family = "Monaspace Krypton",
-        weight = "Light",
+        family = "Monaspace Neon",
+        weight = "Regular",
         harfbuzz_features = {"calt", "clig", "liga", "ss01", "ss02", "ss03"},
     },
     font_size = 12,
     line_height = 1.05,
-    -- freetype_load_target = "Light",
-    -- freetype_render_target = "HorizontalLcd",
+    freetype_load_target = "Light",
     color_scheme = 'Kanagawa (Gogh)',
 
     inactive_pane_hsb = {
