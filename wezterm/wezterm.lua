@@ -1,5 +1,4 @@
 local wezterm = require('wezterm')
-local ssh_domains = require('ssh_servers')
 
 -- Integration with neovim panes
 local function isViProcess(pane)
@@ -47,45 +46,52 @@ wezterm.on('ActivatePaneDirection-down', function(window, pane)
     conditionalActivatePane(window, pane, 'Down', 'j')
 end)
 
-return {
-    -- Font and colors
-    font = wezterm.font {
-        family = "Monaspace Neon",
-        weight = "Regular",
-        harfbuzz_features = {"calt", "clig", "liga", "ss01", "ss02", "ss03"},
-    },
-    font_size = 12,
-    line_height = 1.05,
-    freetype_load_target = "Light",
-    color_scheme = 'Kanagawa (Gogh)',
+local config = wezterm.config_builder()
 
-    inactive_pane_hsb = {
-        saturation = 0.9,
-        brightness = 0.6
-    },
-
-    native_macos_fullscreen_mode = true,
-
-    -- Key mappings
-    leader = { key = 'a', mods = 'CTRL', timeout_milliseconds = 1000 },
-    keys = {
-        -- More easy split key mappings
-        { key = '|', mods = 'LEADER|SHIFT', action = wezterm.action.SplitHorizontal { domain = 'CurrentPaneDomain' }, },
-        { key = '-', mods = 'LEADER', action = wezterm.action.SplitVertical { domain = 'CurrentPaneDomain' }, },
-
-        -- Send "CTRL-A" to the terminal when pressing CTRL-A, CTRL-A
-        { key = 'a', mods = 'LEADER|CTRL', action = wezterm.action.SendString '\x01', },
-
-        -- Integration with neovim panes
-        { key = 'h', mods = 'CTRL', action = wezterm.action.EmitEvent('ActivatePaneDirection-left') },
-        { key = 'j', mods = 'CTRL', action = wezterm.action.EmitEvent('ActivatePaneDirection-down') },
-        { key = 'k', mods = 'CTRL', action = wezterm.action.EmitEvent('ActivatePaneDirection-up') },
-        { key = 'l', mods = 'CTRL', action = wezterm.action.EmitEvent('ActivatePaneDirection-right') },
-
-        -- Full screen
-        { key = 'Enter', mods = 'OPT', action = wezterm.action.ToggleFullScreen }
-    },
-
-    -- SSH domains
-    ssh_domains = ssh_domains
+-- Fonts and colors
+config.font = wezterm.font {
+    family = "Monaspace Neon",
+    weight = "Regular",
+    harfbuzz_features = {"calt", "clig", "liga", "ss01", "ss02", "ss03"},
 }
+config.font_size = 13
+config.line_height = 1.05
+config.freetype_load_target = "Light"
+config.color_scheme = 'Kanagawa (Gogh)'
+
+-- Make inactive pane less visible
+config.inactive_pane_hsb = {
+    saturation = 0.9,
+    brightness = 0.6
+}
+
+-- MacOS full screen
+config.native_macos_fullscreen_mode = true
+
+-- Keys and mappings
+config.leader = { key = 'a', mods = 'CTRL', timeout_milliseconds = 1000 }
+config.keys = {
+    -- More easy split key mappings
+    { key = '|', mods = 'LEADER|SHIFT', action = wezterm.action.SplitHorizontal { domain = 'CurrentPaneDomain' }, },
+    { key = '-', mods = 'LEADER', action = wezterm.action.SplitVertical { domain = 'CurrentPaneDomain' }, },
+
+    -- Send "CTRL-A" to the terminal when pressing CTRL-A, CTRL-A
+    { key = 'a', mods = 'LEADER|CTRL', action = wezterm.action.SendString '\x01', },
+
+    -- Integration with neovim panes
+    { key = 'h', mods = 'CTRL', action = wezterm.action.EmitEvent('ActivatePaneDirection-left') },
+    { key = 'j', mods = 'CTRL', action = wezterm.action.EmitEvent('ActivatePaneDirection-down') },
+    { key = 'k', mods = 'CTRL', action = wezterm.action.EmitEvent('ActivatePaneDirection-up') },
+    { key = 'l', mods = 'CTRL', action = wezterm.action.EmitEvent('ActivatePaneDirection-right') },
+
+    -- Full screen
+    { key = 'Enter', mods = 'OPT', action = wezterm.action.ToggleFullScreen }
+}
+
+-- Configure SSH domains
+config.ssh_domains = wezterm.default_ssh_domains()
+for _, dom in ipairs(config.ssh_domains) do
+  dom.local_echo_threshold_ms = 10000
+end
+
+return config
