@@ -82,3 +82,6 @@ if [ -f "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion
 fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Created by `pipx` on 2024-10-03 13:33:14
+export PATH="$PATH:/Users/ldijk/.local/bin"
