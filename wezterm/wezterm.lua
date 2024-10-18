@@ -50,12 +50,12 @@ local config = wezterm.config_builder()
 
 -- Fonts and colors
 config.font = wezterm.font {
-    family = "Monaspace Neon",
+    family = "Fira Code",
     weight = "Regular",
     harfbuzz_features = {"calt", "clig", "liga", "ss01", "ss02", "ss03"},
 }
 config.font_size = 13
-config.line_height = 1.05
+config.line_height = 1.2
 config.freetype_load_target = "Light"
 config.color_scheme = 'Kanagawa (Gogh)'
 

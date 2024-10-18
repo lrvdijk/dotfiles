@@ -10,7 +10,6 @@ local has_words_before = function()
 end
 
 local tab_intellij_like = function(fallback)
-  -- This little snippet will confirm with tab, and if no entry is selected, will confirm the first item
   if cmp.visible() then
     cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
   elseif snippy.can_expand_or_advance() then
@@ -26,6 +25,8 @@ local cr_intellij_like = function(fallback)
     local entry = cmp.get_selected_entry()
     if entry then
       cmp.confirm()
+    else
+      fallback()
     end
   else
     fallback()
