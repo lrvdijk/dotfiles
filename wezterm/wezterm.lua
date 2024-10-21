@@ -7,7 +7,7 @@ local function isViProcess(pane)
     -- (notably, FreeBSD and other unix systems) are not currently supported
     -- return pane:get_foreground_process_name():find('n?vim') ~= nil
     -- Use get_title as it works for multiplexed sessions too
-    return pane:get_title():find("n?vim") ~= nil
+    return pane:get_title():find("n?vim(diff)?") ~= nil
 end
 
 local function conditionalActivatePane(window, pane, pane_direction, vim_direction)
@@ -20,7 +20,7 @@ local function conditionalActivatePane(window, pane, pane_direction, vim_directi
             wezterm.action.SendKey({ key = vim_direction, mods = 'CTRL' }),
             pane
         )
-        wezterm.sleep_ms(100)
+        wezterm.sleep_ms(50)
         local after = pane:get_cursor_position()
 
         if before.x ~= after.x and before.y ~= after.y then
@@ -55,15 +55,26 @@ config.font = wezterm.font {
     harfbuzz_features = {"calt", "clig", "liga", "ss01", "ss02", "ss03"},
 }
 config.font_size = 13
-config.line_height = 1.2
+config.line_height = 1.1
 config.freetype_load_target = "Light"
-config.color_scheme = 'Kanagawa (Gogh)'
+config.color_scheme = 'OneHalfDark'
 
 -- Make inactive pane less visible
 config.inactive_pane_hsb = {
     saturation = 0.9,
     brightness = 0.6
 }
+
+-- Reduce padding
+config.window_padding = {
+  left = 0,
+  right = 0,
+  top = 0,
+  bottom = 0,
+}
+
+-- Use basic tab bar
+config.use_fancy_tab_bar = false
 
 -- MacOS full screen
 config.native_macos_fullscreen_mode = true
