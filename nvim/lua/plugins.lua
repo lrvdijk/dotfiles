@@ -12,18 +12,36 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
+  --{
+  --  "rebelot/kanagawa.nvim",
+  --  lazy=False,
+  --  priority=1000,
+
+  --  config = function(plugin, opts)
+  --    require('kanagawa').setup({
+  --      transparent = true,
+  --    })
+
+  --    vim.cmd 'colorscheme kanagawa'
+  --    require('kanagawa').load("wave")
+  --  end
+  --},
+
   {
-    "rebelot/kanagawa.nvim",
+    "navarasu/onedark.nvim",
     lazy=False,
     priority=1000,
 
     config = function(plugin, opts)
-      require('kanagawa').setup({
-        transparent = true,
+      require('onedark').setup({
+        style='darker',
+        transparent=true,
+        highlights={
+          ["@comment"] = {fg = "$light_grey", fmt = "italic"},
+        }
       })
 
-      vim.cmd 'colorscheme kanagawa'
-      require('kanagawa').load("wave")
+      vim.cmd 'colorscheme onedark'
     end
   },
 
@@ -265,7 +283,7 @@ require("lazy").setup({
     'okuuva/auto-save.nvim',
     event = { "InsertLeave", "TextChanged", "BufLeave", "FocusLost" },
     opts = {
-      debounce_delay = 500,
+      debounce_delay = 250,
       message = nil,
     }
   }
