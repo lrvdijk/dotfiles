@@ -7,7 +7,7 @@ local function isViProcess(pane)
     -- (notably, FreeBSD and other unix systems) are not currently supported
     -- return pane:get_foreground_process_name():find('n?vim') ~= nil
     -- Use get_title as it works for multiplexed sessions too
-    return pane:get_title():find("n?vim(diff)?") ~= nil
+    return pane:get_title():find("n?vim") ~= nil
 end
 
 local function conditionalActivatePane(window, pane, pane_direction, vim_direction)
