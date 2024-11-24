@@ -54,10 +54,10 @@ config.font = wezterm.font {
     weight = "Regular",
     harfbuzz_features = {"calt", "clig", "liga", "ss01", "ss02", "ss03"},
 }
-config.font_size = 13
-config.line_height = 1.1
-config.freetype_load_target = "Light"
-config.color_scheme = 'OneHalfDark'
+config.font_size = 12
+config.line_height = 1.0
+config.freetype_load_target = "Normal"
+config.color_scheme = 'Kanagawa (Gogh)'
 
 -- Make inactive pane less visible
 config.inactive_pane_hsb = {
