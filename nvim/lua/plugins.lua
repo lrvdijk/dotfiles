@@ -12,36 +12,18 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-  --{
-  --  "rebelot/kanagawa.nvim",
-  --  lazy=False,
-  --  priority=1000,
-
-  --  config = function(plugin, opts)
-  --    require('kanagawa').setup({
-  --      transparent = true,
-  --    })
-
-  --    vim.cmd 'colorscheme kanagawa'
-  --    require('kanagawa').load("wave")
-  --  end
-  --},
-
   {
-    "navarasu/onedark.nvim",
+    "rebelot/kanagawa.nvim",
     lazy=False,
     priority=1000,
 
     config = function(plugin, opts)
-      require('onedark').setup({
-        style='darker',
-        transparent=true,
-        highlights={
-          ["@comment"] = {fg = "$light_grey", fmt = "italic"},
-        }
+      require('kanagawa').setup({
+        transparent = true,
       })
 
-      vim.cmd 'colorscheme onedark'
+      vim.cmd 'colorscheme kanagawa'
+      require('kanagawa').load("wave")
     end
   },
 
@@ -242,7 +224,7 @@ require("lazy").setup({
       'kyazdani42/nvim-web-devicons'
     },
     opts = {
-      theme = "onedark",
+      theme = "auto",
     }
   },
 
