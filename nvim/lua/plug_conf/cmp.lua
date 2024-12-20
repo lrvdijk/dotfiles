@@ -1,5 +1,8 @@
 vim.opt.completeopt = "menu,menuone,preview,noselect"
 
+local copilot_cmp = require('copilot_cmp')
+copilot_cmp.setup()
+
 local snippy = require("snippy")
 local cmp = require('cmp')
 local lspkind = require('lspkind')
