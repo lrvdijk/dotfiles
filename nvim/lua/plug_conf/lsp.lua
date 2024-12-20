@@ -47,23 +47,9 @@ end
 
 local servers = {
   clangd = {},
-  pylsp = {
-    pylsp = {
-      plugins = {
-        pycodestyle = {
-          maxLineLength = 120
-        },
-        autopep8 = {
-          enabled = false
-        },
-        yapf = {
-          enabled = true
-        }
-      }
-    },
-  },
-  tsserver = {},
   astro = {},
+  jedi_language_server = {},
+  ruff = {},
   neocmake = {},
 }
 

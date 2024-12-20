@@ -14,7 +14,7 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
   {
     "rebelot/kanagawa.nvim",
-    lazy=False,
+    lazy=false,
     priority=1000,
 
     config = function(plugin, opts)
@@ -47,6 +47,8 @@ require("lazy").setup({
       'petertriho/cmp-git',
       'ray-x/cmp-treesitter',
       'windwp/nvim-autopairs',
+      'zbirenbaum/copilot-cmp',
+      'onsails/lspkind.nvim'
     },
     config = function()
       require('plug_conf.cmp')
@@ -63,6 +65,27 @@ require("lazy").setup({
   'dcampos/cmp-snippy',
   'petertriho/cmp-git',
   'ray-x/cmp-treesitter',
+
+  -- Github Copilot
+  {
+    'zbirenbaum/copilot.lua',
+    lazy = true,
+    event = "VeryLazy",
+    opts = {
+      suggestion = { enabled = false },
+      panel = { enabled = false },
+    }
+  },
+
+  {
+    'zbirenbaum/copilot-cmp',
+    dependencies = {
+      'zbirenbaum/copilot.lua'
+    }
+  },
+
+  -- Autocompletion icons
+  'onsails/lspkind.nvim',
 
   -- Notifications
   {
