@@ -77,11 +77,26 @@ require("lazy").setup({
     }
   },
 
+  -- Integrate Copilot with cmp
   {
     'zbirenbaum/copilot-cmp',
     dependencies = {
       'zbirenbaum/copilot.lua'
     }
+  },
+
+  -- Copilot chat integration.
+  {
+    "olimorris/codecompanion.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+      "zbirenbaum/copilot.lua",
+      'nvim-lualine/lualine.nvim',
+    },
+    config = function()
+      require('plug_conf.llm')
+    end
   },
 
   -- Autocompletion icons

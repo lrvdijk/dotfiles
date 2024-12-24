@@ -14,7 +14,7 @@ local has_words_before = function()
 end
 
 local tab_intellij_like = function(fallback)
-  if cmp.visible() then
+  if cmp.visible() and has_words_before() then
     cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
   elseif snippy.can_expand_or_advance() then
     snippy.expand_or_advance()
