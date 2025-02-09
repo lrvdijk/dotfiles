@@ -10,11 +10,11 @@
   "assistant": {
     "default_model": {
       "provider": "copilot_chat",
-      "model": "gpt-4"
+      "model": "claude-3-5-sonnet"
     },
     "version": "2"
   },
-  "theme": "One Dark",
+  "theme": "Kanagawa Wave",
   "telemetry": {
     "metrics": false
   },
@@ -57,11 +57,18 @@
           }
         }
       }
+    },
+    "pylsp": {
+      "plugins": {
+        "ruff": {
+          "enabled": true
+        }
+      }
     }
   },
   "languages": {
     "Python": {
-      "language_servers": ["basedpyright", "!pyright"]
+      "language_servers": ["pylsp", "basedpyright", "!pyright"]
     }
   },
   "inlay_hints": {
