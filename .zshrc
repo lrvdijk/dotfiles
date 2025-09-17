@@ -79,7 +79,7 @@ unset __conda_setup
 # >>> mamba initialize >>>
 # !! Contents within this block are managed by 'mamba init' !!
 export MAMBA_EXE='/opt/homebrew/opt/micromamba/bin/micromamba';
-export MAMBA_ROOT_PREFIX='/Users/ldijk/micromamba';
+export MAMBA_ROOT_PREFIX='/opt/homebrew/opt/micromamba/envs';
 __mamba_setup="$("$MAMBA_EXE" shell hook --shell zsh --root-prefix "$MAMBA_ROOT_PREFIX" 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__mamba_setup"
@@ -98,5 +98,4 @@ fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# Created by `pipx` on 2024-10-03 13:33:14
-export PATH="$PATH:/Users/ldijk/.local/bin"
+eval "$(zellij setup --generate-auto-start zsh)"
