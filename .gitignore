@@ -6,3 +6,5 @@ nvim/plugin
 wezterm/ssh_servers.lua
 zed/prompts
 zed/settings_backup.json
+*.bak
+helix/runtime
