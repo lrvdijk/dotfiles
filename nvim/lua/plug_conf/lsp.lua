@@ -63,6 +63,7 @@ local setup = function()
   require('mason').setup()
 
   -- Ensure the servers above are installed
+  local util = require 'lspconfig.util'
   local mason_lspconfig = require 'mason-lspconfig'
 
   mason_lspconfig.setup {
@@ -78,6 +79,29 @@ local setup = function()
       }
     end,
     ["rust_analyzer"] = function() end,
+    ["jedi_language_server"] = function()
+      local project_root = vim.fs.root(0, {".git", "pyproject.toml", "setup.py", "setup.cfg"})
+      local jedi_venv_settings = {}
+      if vim.fn.isdirectory(project_root .. "/.venv") then
+        jedi_venv_settings = {
+          workspace = {
+            environmentPath = project_root .. "/.venv/bin/python"
+          }
+        }
+      elseif os.getenv("CONDA_PREFIX") ~= nil then
+        jedi_venv_settings = {
+          workspace = {
+            environmentPath = os.getenv("CONDA_PREFIX") .. "/bin/python"
+          }
+        }
+      end
+
+      require('lspconfig')["jedi_language_server"].setup {
+        capabilities = capabilities,
+        on_attach = on_attach,
+        settings = vim.tbl_deep_extend("force", servers["jedi_language_server"], jedi_venv_settings)
+      }
+    end
   }
 end
 
