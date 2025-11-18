@@ -1,0 +1,37 @@
+theme = "onedark"
+
+[editor]
+mouse = true
+cursorline = true
+true-color = true
+rulers = [120]
+color-modes = true
+completion-timeout = 15
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[editor.auto-pairs]
+'(' = ')'
+'{' = '}'
+'[' = ']'
+'"' = '"'
+'`' = '`'
+
+[editor.lsp]
+auto-signature-help = true
+display-messages = true
+display-inlay-hints = true
+
+[editor.auto-save]
+focus-lost = true
+
+[editor.auto-save.after-delay]
+enable = true
+timeout = 1000
+
+[editor.indent-guides]
+render = true
+skip-levels = 1
