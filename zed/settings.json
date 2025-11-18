@@ -7,26 +7,40 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
-  "assistant": {
+  "buffer_font_weight": 400.0,
+  "buffer_line_height": "standard",
+  "agent": {
+    "default_profile": "minimal",
     "default_model": {
-      "provider": "copilot_chat",
-      "model": "claude-3-5-sonnet"
-    },
-    "version": "2"
+      "provider": "mistral",
+      "model": "codestral-latest"
+    }
   },
-  "theme": "Kanagawa Wave",
+  "features": {
+    "edit_prediction_provider": "copilot"
+  },
+  "theme": "One Dark",
   "telemetry": {
     "metrics": false
   },
   "vim_mode": true,
-  "ui_font_size": 15,
-  "buffer_font_size": 13,
   "autosave": {
     "after_delay": { "milliseconds": 1000 }
   },
+  // Soft-wrap and rulers
+  "soft_wrap": "none", // none, editor_width, preferred_line_length, bounded
+  "preferred_line_length": 120, // Column to soft-wrap
+  "show_wrap_guides": true, // Show/hide wrap guides (vertical rulers)
+  "wrap_guides": [80, 120],
+
+  // Splitting
   "pane_split_direction_horizontal": "down",
   "pane_split_direction_vertical": "right",
-  "buffer_font_family": "Fira Code",
+
+  // Fonts
+  "ui_font_size": 16,
+  "buffer_font_size": 15.0,
+  "buffer_font_family": "Iosevka",
   "buffer_font_features": {
     "calt": true,
     "clig": true,
@@ -38,8 +52,9 @@
   "lsp": {
     "rust-analyzer": {
       "initialization_options": {
-        "checkOnSave": {
-          "command": "clippy" // rust-analyzer.checkOnSave.command
+        "checkOnSave": true,
+        "check": {
+          "command": "clippy"
         },
         "inlayHints": {
           "maxLength": null,
@@ -59,16 +74,18 @@
       }
     },
     "pylsp": {
-      "plugins": {
-        "ruff": {
-          "enabled": true
+      "settings": {
+        "plugins": {
+          "ruff": {
+            "enabled": true
+          }
         }
       }
     }
   },
   "languages": {
     "Python": {
-      "language_servers": ["pylsp", "basedpyright", "!pyright"]
+      "language_servers": ["basedpyright", "!pyright"]
     }
   },
   "inlay_hints": {
@@ -79,5 +96,8 @@
   },
   "terminal": {
     "font_family": "FiraCode Nerd Font"
+  },
+  "file_types": {
+    "HTML": ["hbs"]
   }
 }

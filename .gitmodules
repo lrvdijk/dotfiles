@@ -1,9 +1,3 @@
-[submodule "base16-idea"]
-	path = base16-idea
-	url = https://github.com/adilosa/base16-idea
 [submodule "prezto"]
 	path = prezto
 	url = https://github.com/sorin-ionescu/prezto
-[submodule "base16-shell"]
-	path = base16-shell
-	url = https://github.com/tinted-theming/base16-shell
