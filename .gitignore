@@ -4,3 +4,5 @@ nvim/plugin
 .zcompdump
 .zsh_sessions
 wezterm/ssh_servers.lua
+zed/prompts
+zed/settings_backup.json
