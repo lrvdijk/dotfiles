@@ -17,8 +17,8 @@ fi
 # Editors
 #
 
-export EDITOR='nvim'
-export VISUAL='nvim'
+export EDITOR='hx'
+export VISUAL='hx'
 export PAGER='less'
 
 #
@@ -64,3 +64,4 @@ fi
 
 # Created by `pipx` on 2024-10-03 13:33:14
 export PATH="$PATH:/Users/ldijk/.local/bin"
+export PATH="$PATH:/opt/homebrew/bin"
