@@ -1,10 +1,5 @@
 export PATH=/opt/homebrew/bin:$PATH
 
-# Check if running kitty terminal, if yes start zellij
-if [[ "${KITTY_WINDOW_ID}" != "" ]]; then
-    eval "$(zellij setup --generate-auto-start zsh)"
-fi
-
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/dotfiles/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -43,6 +38,8 @@ export PATH=$PATH:/opt/homebrew/opt/sqlite/bin
 export PATH=$PATH:$HOME/edirect/
 export PATH="/usr/local/opt/openjdk/bin:$PATH"
 export PATH="/opt/homebrew/opt/postgresql@17/bin:$PATH"
+export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
+export PATH="/opt/homebrew/opt/gcc/bin$PATH"
 
 # Vi key bindings
 bindkey -v
