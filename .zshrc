@@ -39,7 +39,10 @@ export PATH=$PATH:$HOME/edirect/
 export PATH="/usr/local/opt/openjdk/bin:$PATH"
 export PATH="/opt/homebrew/opt/postgresql@17/bin:$PATH"
 export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
-export PATH="/opt/homebrew/opt/gcc/bin$PATH"
+export PATH="/opt/homebrew/opt/gcc/bin:$PATH"
+
+CC=gcc-15
+CXX=g++-15
 
 # Vi key bindings
 bindkey -v
