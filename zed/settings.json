@@ -7,6 +7,14 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
+  "diagnostics": {
+    "inline": {
+      "enabled": true
+    }
+  },
+  "sticky_scroll": {
+    "enabled": true
+  },
   "buffer_font_weight": 400.0,
   "buffer_line_height": "standard",
   "agent": {
@@ -85,7 +93,11 @@
   },
   "languages": {
     "Python": {
-      "language_servers": ["basedpyright", "!pyright"]
+      "language_servers": ["basedpyright", "harper-ls", "!pyright"]
+    },
+    "C++": {
+      "language_servers": ["clangd", "harper-ls"],
+      "format_on_save": "on"
     }
   },
   "inlay_hints": {
@@ -95,7 +107,7 @@
     "show_other_hints": true
   },
   "terminal": {
-    "font_family": "FiraCode Nerd Font"
+    "font_family": "Iosevka Nerd Font Mono"
   },
   "file_types": {
     "HTML": ["hbs"]
