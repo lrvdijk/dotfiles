@@ -1,12 +1,3 @@
-export PATH=/opt/homebrew/bin:$PATH
-
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/dotfiles/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
 # Prezto setup
 #
 # Executes commands at the start of an interactive session.
@@ -29,6 +20,7 @@ setopt CLOBBER
 #     [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
 #         source "$BASE16_SHELL/profile_helper.sh"
 
+export PATH=/opt/homebrew/bin:$PATH
 export PATH=$PATH:$HOME/bin:/usr/local/bin
 export PATH=$PATH:$HOME/.conda/bin/
 export PATH=$PATH:$HOME/.cargo/bin/
@@ -41,8 +33,15 @@ export PATH="/opt/homebrew/opt/postgresql@17/bin:$PATH"
 export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
 export PATH="/opt/homebrew/opt/gcc/bin:$PATH"
 
-CC=gcc-15
-CXX=g++-15
+export LDFLAGS="-L/opt/homebrew/opt/llvm/lib/c++ -L/opt/homebrew/opt/llvm/lib/unwind -lunwind"
+export LDFLAGS="$LDFLAGS -L/opt/homebrew/opt/llvm/lib"
+export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"
+
+export CC=clang
+export CXX=clang++
+export LD=ld.lld
+export AR=llvm-ar
+export RANLIB=llvm-ranlib
 
 # Vi key bindings
 bindkey -v
@@ -63,9 +62,6 @@ bindkey -M vicmd "??" history-beginning-search-forward
 # Incremental search
 bindkey -M vicmd "/" history-incremental-search-backward
 bindkey -M vicmd "?" history-incremental-search-forward
-
-# To customize prompt, run `p10k configure` or edit ~/dotfiles/.p10k.zsh.
-[[ ! -f ~/dotfiles/.p10k.zsh ]] || source ~/dotfiles/.p10k.zsh
 
 # >>> mamba initialize >>>
 # !! Contents within this block are managed by 'mamba init' !!
@@ -88,3 +84,4 @@ if [ -f "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion
 fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+eval "$(starship init zsh)"
