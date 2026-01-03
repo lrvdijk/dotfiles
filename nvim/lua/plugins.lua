@@ -13,156 +13,114 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   {
-    "rebelot/kanagawa.nvim",
-    lazy=false,
-    priority=1000,
+    "navarasu/onedark.nvim",
+    lazy = false,
+    priority = 1000, -- make sure to load this before all the other start plugins
+    config = function()
+      require('onedark').setup {
+        style = 'darker'
+      }
+      require('onedark').load()
+    end
+  },
 
-    config = function(plugin, opts)
-      require('kanagawa').setup({
-        transparent = true,
-      })
-
-      vim.cmd 'colorscheme kanagawa'
-      require('kanagawa').load("wave")
+  -- Smart splits management with integration for zellij
+  {
+    'mrjones2014/smart-splits.nvim',
+    config = function()
+      require('plug_conf.smartsplits')
     end
   },
 
   -- Autocompletion
   {
-    "hrsh7th/nvim-cmp",
-    -- load cmp on InsertEnter
-    event = {"InsertEnter", "CmdlineEnter"},
+    'saghen/blink.cmp',
+    -- optional: provides snippets for the snippet source
+    dependencies = { 'rafamadriz/friendly-snippets' },
 
-    -- these dependencies will only be loaded when cmp loads
-    -- dependencies are always lazy-loaded unless specified otherwise
-    dependencies = {
-      'hrsh7th/cmp-nvim-lsp',
-      'hrsh7th/cmp-nvim-lsp-signature-help',
-      'hrsh7th/cmp-buffer',
-      'hrsh7th/cmp-path',
-      'hrsh7th/cmp-cmdline',
-      'hrsh7th/cmp-omni',
-      'dcampos/nvim-snippy',
-      'dcampos/cmp-snippy',
-      'petertriho/cmp-git',
-      'ray-x/cmp-treesitter',
-      'windwp/nvim-autopairs',
-      'zbirenbaum/copilot-cmp',
-      'onsails/lspkind.nvim'
-    },
-    config = function()
-      require('plug_conf.cmp')
-    end,
-  },
+    -- use a release tag to download pre-built binaries
+    version = '1.*',
+    -- AND/OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
+    -- build = 'cargo build --release',
+    -- If you use nix, you can build from source using latest nightly rust with:
+    -- build = 'nix run .#build-plugin',
 
-  'hrsh7th/cmp-nvim-lsp',
-  'hrsh7th/cmp-nvim-lsp-signature-help',
-  'hrsh7th/cmp-buffer',
-  'hrsh7th/cmp-path',
-  'hrsh7th/cmp-cmdline',
-  'hrsh7th/cmp-omni',
-  'dcampos/nvim-snippy',
-  'dcampos/cmp-snippy',
-  'petertriho/cmp-git',
-  'ray-x/cmp-treesitter',
-
-  -- Github Copilot
-  {
-    'zbirenbaum/copilot.lua',
-    lazy = true,
-    event = "VeryLazy",
+    ---@module 'blink.cmp'
+    ---@type blink.cmp.Config
     opts = {
-      suggestion = { enabled = false },
-      panel = { enabled = false },
-    }
-  },
+      -- 'default' (recommended) for mappings similar to built-in completions (C-y to accept)
+      -- 'super-tab' for mappings similar to vscode (tab to accept)
+      -- 'enter' for enter to accept
+      -- 'none' for no mappings
+      --
+      -- All presets have the following mappings:
+      -- C-space: Open menu or open docs if already open
+      -- C-n/C-p or Up/Down: Select next/previous item
+      -- C-e: Hide menu
+      -- C-k: Toggle signature help (if signature.enabled = true)
+      --
+      -- See :h blink-cmp-config-keymap for defining your own keymap
+      keymap = {
+        preset = 'super-tab',
 
-  -- Integrate Copilot with cmp
-  {
-    'zbirenbaum/copilot-cmp',
-    dependencies = {
-      'zbirenbaum/copilot.lua'
-    }
-  },
+        ['<Tab>'] = {
+          function(cmp)
+            if cmp.snippet_active() then return cmp.accept()
+            else return cmp.select_next() end
+          end,
+          'snippet_forward',
+          'fallback'
+        },
 
-  -- Copilot chat integration.
-  {
-    "olimorris/codecompanion.nvim",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-treesitter/nvim-treesitter",
-      "zbirenbaum/copilot.lua",
-      'nvim-lualine/lualine.nvim',
+        ['<S-Tab>'] = { 'select_prev', 'snippet_backward', 'fallback' },
+      },
+
+      appearance = {
+        -- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
+        -- Adjusts spacing to ensure icons are aligned
+        nerd_font_variant = 'mono'
+      },
+
+      -- (Default) Only show the documentation popup when manually triggered
+      completion = {
+        documentation = { auto_show = true },
+        list = {
+          selection = {
+            preselect = false,
+            auto_insert = true,
+          }
+        }
+      },
     },
-    config = function()
-      require('plug_conf.llm')
-    end
+    opts_extend = { "sources.default" }
   },
 
   -- Autocompletion icons
   'onsails/lspkind.nvim',
-
-  -- Notifications
-  {
-    'j-hui/fidget.nvim',
-    config = function()
-      require('fidget').setup()
-    end,
-  },
 
   -- Telescope
   "nvim-lua/plenary.nvim",
 
   {
     "nvim-telescope/telescope.nvim",
-    branch = "0.1.x",
+    branch = "0.2.x",
     dependencies = {
       "nvim-lua/plenary.nvim",
+      { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
     },
     config = function()
       require('plug_conf.telescope')
     end,
   },
 
-  {
-    "nvim-telescope/telescope-fzy-native.nvim",
-    dependencies  = {
-      "nvim-telescope/telescope.nvim",
-    },
-    config=function()
-      require('telescope').load_extension('fzy_native')
-    end,
-  },
-
-  -- search emoji and other symbols
-  {
-    "nvim-telescope/telescope-symbols.nvim",
-    dependencies = {
-      "nvim-telescope/telescope.nvim"
-    }
-  },
-
   -- Language server management
-  'williamboman/mason.nvim',
-  {
-    'williamboman/mason-lspconfig.nvim',
+ {
+    "mason-org/mason-lspconfig.nvim",
+    opts = {},
     dependencies = {
-      'williamboman/mason.nvim'
+        { "mason-org/mason.nvim", opts = {} },
+        "neovim/nvim-lspconfig",
     },
-  },
-  {
-    'neovim/nvim-lspconfig',
-    dependencies = {
-      'williamboman/mason.nvim',
-      'williamboman/mason-lspconfig.nvim',
-      'hrsh7th/cmp-nvim-lsp',
-
-      -- Useful status updates for LSP
-      'j-hui/fidget.nvim',
-    },
-    config = function()
-      require('plug_conf.lsp').setup()
-    end
   },
 
   -- Tree sitter for improved highlighting
@@ -198,7 +156,7 @@ require("lazy").setup({
   -- Additional Rust tools
   {
     'mrcjkb/rustaceanvim',
-    version = '^4', -- Recommended
+    version = '^7', -- Recommended
     ft = { 'rust' },
     init = function()
       vim.g.rustaceanvim = {
@@ -250,8 +208,9 @@ require("lazy").setup({
   },
 
   -- Other languages
-  { "cespare/vim-toml", ft = { "toml" }, branch = "main" },
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
+
+  { "cespare/vim-toml", ft = { "toml" }, branch = "main" },
 
   -- Status line
   'nvim-tree/nvim-web-devicons',
@@ -289,14 +248,10 @@ require("lazy").setup({
   },
 
   -- Git management
-  "tpope/vim-fugitive",
   { "lewis6991/gitsigns.nvim", config = function() require('plug_conf.gitsigns') end },
 
-  -- Tmux
+  -- Tmux config file highlighting
   { "tmux-plugins/vim-tmux", ft = { "tmux" } },
-
-  -- Tmux/wezterm pane navigation integration
-  { 'numToStr/Navigator.nvim', config = function() require('plug_conf.navigator') end},
 
   -- Auto save
   {
