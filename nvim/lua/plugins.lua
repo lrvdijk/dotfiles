@@ -149,6 +149,24 @@ require("lazy").setup({
     config = true,
   },
 
+  {
+    'stevearc/conform.nvim',
+    opts = {
+      formatters_by_ft = {
+        python = { "ruff_format" },
+        rust = { "rustfmt", lsp_format = "fallback" },
+        c = { "clang-format" },
+        cpp = { "clang-format" },
+        markdown = { "prettier" },
+        yaml = { "prettier" },
+      },
+      format_on_save = {
+        timeout_ms = 500,
+        lsp_format = "fallback",
+      },
+    },
+  },
+
   -- Python helpers
   { "Vimjas/vim-python-pep8-indent", ft = { "python" } },
   { "jeetsukumaran/vim-pythonsense", ft = { "python" } },
@@ -258,8 +276,14 @@ require("lazy").setup({
     'okuuva/auto-save.nvim',
     event = { "InsertLeave", "TextChanged", "BufLeave", "FocusLost" },
     opts = {
-      debounce_delay = 250,
+      debounce_delay = 500,
       message = nil,
+      condition = function(buf)
+        local mode = vim.fn.mode()
+        if mode == "i" then
+          return false
+        end
+      end
     }
   }
 })
