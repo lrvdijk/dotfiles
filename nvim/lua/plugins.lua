@@ -283,6 +283,8 @@ require("lazy").setup({
         if mode == "i" then
           return false
         end
+
+        return true
       end
     }
   }
