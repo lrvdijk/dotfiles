@@ -17,8 +17,8 @@ fi
 # Editors
 #
 
-export EDITOR='hx'
-export VISUAL='hx'
+export EDITOR='nvim'
+export VISUAL='nvim'
 export PAGER='less'
 
 #
