@@ -167,10 +167,6 @@ require("lazy").setup({
     },
   },
 
-  -- Python helpers
-  { "Vimjas/vim-python-pep8-indent", ft = { "python" } },
-  { "jeetsukumaran/vim-pythonsense", ft = { "python" } },
-
   -- Additional Rust tools
   {
     'mrcjkb/rustaceanvim',

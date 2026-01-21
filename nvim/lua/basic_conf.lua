@@ -10,12 +10,12 @@ vim.opt.laststatus = 3
 vim.opt.cmdheight = 0
 
 vim.opt.number = true
-vim.opt.textwidth = 120
 vim.opt.colorcolumn = "+1"
 vim.opt.formatoptions:append("1")
 vim.opt.formatoptions:append("n")
 vim.opt.formatoptions:append("/")
 vim.opt.formatoptions:remove("o")
+vim.opt.formatoptions:remove("t")
 
 vim.opt.backup = false
 vim.opt.writebackup = false
