@@ -12,16 +12,27 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
+  -- {
+  --   "navarasu/onedark.nvim",
+  --   lazy = false,
+  --   priority = 1000, -- make sure to load this before all the other start plugins
+  --   config = function()
+  --     require('onedark').setup {
+  --       style = 'darker'
+  --     }
+  --     require('onedark').load()
+  --   end
+  -- },
+
   {
-    "navarasu/onedark.nvim",
+    "rebelot/kanagawa.nvim",
     lazy = false,
-    priority = 1000, -- make sure to load this before all the other start plugins
+    priority = 1000,
     config = function()
-      require('onedark').setup {
-        style = 'darker'
-      }
-      require('onedark').load()
-    end
+      require('kanagawa').setup()
+
+      vim.cmd('colorscheme kanagawa')
+    end,
   },
 
   -- Smart splits management with integration for zellij
@@ -65,8 +76,11 @@ require("lazy").setup({
 
         ['<Tab>'] = {
           function(cmp)
-            if cmp.snippet_active() then return cmp.accept()
-            else return cmp.select_next() end
+            if cmp.snippet_active() then
+              return cmp.accept()
+            else
+              return cmp.select_next()
+            end
           end,
           'snippet_forward',
           'fallback'
@@ -99,11 +113,9 @@ require("lazy").setup({
   'onsails/lspkind.nvim',
 
   -- Telescope
-  "nvim-lua/plenary.nvim",
-
   {
     "nvim-telescope/telescope.nvim",
-    tag = "*",
+    version = "*",
     dependencies = {
       "nvim-lua/plenary.nvim",
       { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
@@ -114,13 +126,17 @@ require("lazy").setup({
   },
 
   -- Language server management
- {
+  {
     "mason-org/mason-lspconfig.nvim",
     opts = {},
     dependencies = {
-        { "mason-org/mason.nvim", opts = {} },
-        "neovim/nvim-lspconfig",
+      { "mason-org/mason.nvim", opts = {} },
+      "neovim/nvim-lspconfig",
     },
+    config = function()
+      require("mason-lspconfig").setup()
+      require('plug_conf.lsp')
+    end,
   },
 
   -- Tree sitter for improved highlighting
@@ -138,7 +154,7 @@ require("lazy").setup({
     event = "LspAttach",
     dependencies = { "neovim/nvim-lspconfig" },
     config = function()
-        require("inlay-hints").setup()
+      require("inlay-hints").setup()
     end
   },
 
@@ -178,7 +194,7 @@ require("lazy").setup({
           use_clippy = true,
         },
         server = {
-          on_attach = require('plug_conf.lsp').on_attach,
+          -- on_attach = require('plug_conf.lsp').on_attach,
 
           default_settings = {
             ['rust-analyzer'] = {
@@ -224,7 +240,11 @@ require("lazy").setup({
   -- Other languages
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
 
-  { "cespare/vim-toml", ft = { "toml" }, branch = "main" },
+  {
+    "cespare/vim-toml",
+    ft = { "toml" },
+    branch = "main"
+  },
 
   -- Status line
   'nvim-tree/nvim-web-devicons',
@@ -254,7 +274,7 @@ require("lazy").setup({
     dependencies = {
       'nvim-lua/plenary.nvim'
     },
-    config = function(plugin, opts)
+    config = function(_, _)
       require('session_manager').setup({
         autoload_mode = require('session_manager.config').AutoloadMode.CurrentDir,
       })
@@ -265,23 +285,20 @@ require("lazy").setup({
   { "lewis6991/gitsigns.nvim", config = function() require('plug_conf.gitsigns') end },
 
   -- Tmux config file highlighting
-  { "tmux-plugins/vim-tmux", ft = { "tmux" } },
+  { "tmux-plugins/vim-tmux",   ft = { "tmux" } },
 
-  -- Auto save
+  -- Autosave
   {
     'okuuva/auto-save.nvim',
     event = { "InsertLeave", "TextChanged", "BufLeave", "FocusLost" },
     opts = {
-      debounce_delay = 500,
+      trigger_events = {
+        defer_save = { "InsertLeave", "TextChanged", "CursorHold" },
+        cancel_deferred_save = { "InsertEnter", "CursorMoved" }
+      },
+      debounce_delay = 1500,
       message = nil,
-      condition = function(buf)
-        local mode = vim.fn.mode()
-        if mode == "i" then
-          return false
-        end
-
-        return true
-      end
+      condition = require('plug_conf.autosave').autosave_condition,
     }
   }
 })
