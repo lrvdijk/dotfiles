@@ -175,6 +175,7 @@ require("lazy").setup({
         cpp = { "clang-format" },
         markdown = { "prettier" },
         yaml = { "prettier" },
+        snakemake = { "snakefmt" },
       },
       format_on_save = {
         timeout_ms = 500,
@@ -300,5 +301,31 @@ require("lazy").setup({
       message = nil,
       condition = require('plug_conf.autosave').autosave_condition,
     }
-  }
+  },
+
+  -- Decisive CSV/TSV viewing improvements
+  {
+    "emmanueltouzery/decisive.nvim",
+    config = function()
+      require('decisive').setup{}
+    end,
+    lazy=true,
+    ft = {'csv', 'tsv'},
+    keys = {
+      { '<leader>cca', ":lua require('decisive').align_csv({})<cr>",       { silent = true }, desc = "Align CSV",          mode = 'n' },
+      { '<leader>ccA', ":lua require('decisive').align_csv_clear({})<cr>", { silent = true }, desc = "Align CSV clear",    mode = 'n' },
+      { '[c', ":lua require('decisive').align_csv_prev_col()<cr>",         { silent = true }, desc = "Align CSV prev col", mode = 'n' },
+      { ']c', ":lua require('decisive').align_csv_next_col()<cr>",         { silent = true }, desc = "Align CSV next col", mode = 'n' },
+    }
+  },
+  {
+    "snakemake/snakemake",
+    ft = "snakemake",
+    config = function(plugin)
+      vim.opt.rtp:append(plugin.dir .. "/misc/vim")
+    end,
+    init = function(plugin)
+      require("lazy.core.loader").ftdetect(plugin.dir .. "/misc/vim")
+    end,
+  },
 })
