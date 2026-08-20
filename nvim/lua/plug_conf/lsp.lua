@@ -21,6 +21,7 @@ local on_attach = function(event)
   end
 
   nmap('grd', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+  nmap('grD', vim.lsp.buf.definition, '[G]oto [D]eclaration')
   nmap('grt', vim.lsp.buf.type_definition, '[T]ype Definition')
   nmap('grr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
   nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
