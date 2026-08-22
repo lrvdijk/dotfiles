@@ -7,6 +7,23 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
+  "agent_servers": {
+    "claude-acp": {
+      "type": "registry"
+    }
+  },
+  "project_panel": {
+    "dock": "right"
+  },
+  "outline_panel": {
+    "dock": "right"
+  },
+  "collaboration_panel": {
+    "dock": "right"
+  },
+  "git_panel": {
+    "dock": "right"
+  },
   "icon_theme": "Catppuccin Mocha",
   "diagnostics": {
     "inline": {
@@ -19,6 +36,7 @@
   "buffer_font_weight": 400.0,
   "buffer_line_height": "standard",
   "agent": {
+    "dock": "left",
     "default_profile": "minimal",
     "default_model": {
       "provider": "mistral",
