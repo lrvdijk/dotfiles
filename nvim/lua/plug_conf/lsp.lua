@@ -12,17 +12,8 @@ local on_attach = function(event)
     vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
   end
 
-  local imap = function(keys, func, desc)
-    if desc then
-      desc = 'LSP: ' .. desc
-    end
-
-    vim.keymap.set('i', keys, func, { buffer = bufnr, desc = desc })
-  end
-
   nmap('grd', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
-  nmap('grD', vim.lsp.buf.definition, '[G]oto [D]eclaration')
-  nmap('grt', vim.lsp.buf.type_definition, '[T]ype Definition')
+  nmap('grD', vim.lsp.buf.definition, '[G]oto [D]efinition')
   nmap('grr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
   nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
   nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
@@ -31,7 +22,6 @@ local on_attach = function(event)
   -- See `:help K` for why this keymap
   nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
   nmap('<C-s>', vim.lsp.buf.signature_help, 'Signature Documentation')
-  imap('<C-s>', vim.lsp.buf.signature_help, 'Signature Documentation')
 
   -- Lesser used LSP functionality
   nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd Folder')
@@ -39,11 +29,6 @@ local on_attach = function(event)
   nmap('<leader>wl', function()
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, '[W]orkspace [L]ist Folders')
-
-  -- Create a command `:Format` local to the LSP buffer
-  vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
-    vim.lsp.buf.format()
-  end, { desc = 'Format current buffer with LSP' })
 end
 
 vim.api.nvim_create_autocmd('LspAttach', {

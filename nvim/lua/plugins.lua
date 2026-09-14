@@ -1,5 +1,5 @@
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
+if not vim.uv.fs_stat(lazypath) then
   vim.fn.system({
     "git",
     "clone",
@@ -12,18 +12,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-  -- {
-  --   "navarasu/onedark.nvim",
-  --   lazy = false,
-  --   priority = 1000, -- make sure to load this before all the other start plugins
-  --   config = function()
-  --     require('onedark').setup {
-  --       style = 'darker'
-  --     }
-  --     require('onedark').load()
-  --   end
-  -- },
-
   {
     "rebelot/kanagawa.nvim",
     lazy = false,
@@ -128,7 +116,6 @@ require("lazy").setup({
   -- Language server management
   {
     "mason-org/mason-lspconfig.nvim",
-    opts = {},
     dependencies = {
       { "mason-org/mason.nvim", opts = {} },
       "neovim/nvim-lspconfig",
@@ -195,8 +182,6 @@ require("lazy").setup({
           use_clippy = true,
         },
         server = {
-          -- on_attach = require('plug_conf.lsp').on_attach,
-
           default_settings = {
             ['rust-analyzer'] = {
               inlayHints = {
@@ -275,7 +260,7 @@ require("lazy").setup({
     dependencies = {
       'nvim-lua/plenary.nvim'
     },
-    config = function(_, _)
+    config = function()
       require('session_manager').setup({
         autoload_mode = require('session_manager.config').AutoloadMode.CurrentDir,
       })

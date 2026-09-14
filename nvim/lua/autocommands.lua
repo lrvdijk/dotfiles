@@ -14,3 +14,11 @@ vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI", "FocusGained" }, {
   command = "if mode() != 'c' | checktime | endif",
   pattern = { "*" },
 })
+
+-- Show diagnostics for the symbol under the cursor
+vim.api.nvim_create_autocmd("CursorHold", {
+  pattern = { "*" },
+  callback = function()
+    vim.diagnostic.open_float(nil, { focusable = false })
+  end,
+})

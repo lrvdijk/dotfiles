@@ -1,5 +1,3 @@
-vim.opt.encoding = "utf-8"
-
 vim.opt.backspace = "indent,eol,start"
 vim.opt.expandtab = true
 vim.opt.tabstop = 4
