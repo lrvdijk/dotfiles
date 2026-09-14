@@ -35,7 +35,7 @@ export PATH="/opt/homebrew/opt/gcc/bin:$PATH"
 
 export LDFLAGS="-L/opt/homebrew/opt/llvm/lib/c++ -L/opt/homebrew/opt/llvm/lib/unwind -lunwind"
 export LDFLAGS="$LDFLAGS -L/opt/homebrew/opt/llvm/lib"
-export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"
+export CPPFLAGS="-I/opt/homebrew/opt/llvm/include -D_LIBCPP_DISABLE_AVAILABILITY"
 
 export CC=clang
 export CXX=clang++
@@ -75,6 +75,23 @@ else
 fi
 unset __mamba_setup
 # <<< mamba initialize <<<
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+export CONDA_ROOT_PREFIX="$HOME/.mamba/envs";
+__conda_setup="$('/opt/homebrew/Caskroom/miniconda/base/bin/conda' --root-prefix "$MAMBA_ROOT_PREFIX" 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/opt/homebrew/Caskroom/miniconda/base/etc/profile.d/conda.sh" ]; then
+        . "/opt/homebrew/Caskroom/miniconda/base/etc/profile.d/conda.sh"
+    else
+        export PATH="/opt/homebrew/Caskroom/miniconda/base/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
 
 if [ -f "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc" ]; then
   source "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
